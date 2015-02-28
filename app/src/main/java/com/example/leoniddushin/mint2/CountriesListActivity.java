@@ -9,9 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.leoniddushin.mint2.Adapters.CountriesAdapter;
-import com.example.leoniddushin.mint2.Objects.Country;
 
 
 public class CountriesListActivity extends ActionBarActivity {

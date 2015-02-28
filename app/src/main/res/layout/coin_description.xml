@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/LinearLayout">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp">
+
+            <ImageButton
+                android:id="@+id/Desc_ib_A"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/usa_2002_ohio_25"
+                android:contentDescription="@string/abc_action_bar_home_description"
+                android:layout_gravity="center_horizontal"
+                android:nestedScrollingEnabled="true"
+                android:longClickable="false"
+                android:scaleType="centerCrop" />
+
+            <ImageButton
+                android:id="@+id/Desc_ib_B"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/usa_p_25"
+                android:contentDescription="@string/abc_action_bar_home_description"
+                android:nestedScrollingEnabled="true"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Penny"
+            android:id="@+id/Desc_tv_CoinTitle"
+            android:layout_column="14"
+            android:gravity="center"
+            android:visibility="visible" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Mint:"
+            android:id="@+id/Desc_tv_MintTitle"
+            android:textIsSelectable="true"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="S"
+            android:id="@+id/Desc_tv_MintText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Year:"
+            android:id="@+id/Desc_tv_YearTitle"
+            android:textIsSelectable="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="1900"
+            android:id="@+id/Desc_tv_YearText" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Grade:"
+            android:id="@+id/Desc_tv_GradeTitle"
+            android:textIsSelectable="true"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Good (G)"
+            android:id="@+id/Desc_tv_GradeText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Quantity:"
+            android:id="@+id/Desc_tv_QuantityTitle"
+            android:textIsSelectable="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="20dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="1"
+            android:ems="1"
+            android:id="@+id/Desc_et_QuantityText"
+            android:gravity="center_horizontal" />
+</LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Coin Description:"
+        android:id="@+id/Desc_tv_DesriptionTitle" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Like all Canadian coins, the obverse depicts the reigning Canadian monarch at the time of issue. The current obverse depicts Queen Elizabeth II; her likeness has seen three design updates, the first occurring in 1965, a 1990 update to the design of Dora de Pedery-Hunt, and the 2003 update designed by Susanna Blunt. A special reverse side, depicting arock dove, was issued in 1967 as part of a Centennial commemoration. It was designed by the Canadian artist Alex Colville and its use in 1967 marked the only time the 1937 maple leaf design was not used for the penny before it was discontinued in 2012. The maple twig depicted on the coin is botanically incorrect. The Phyllotaxis of the twig on the coin is clearly alternate while maples in fact always have opposite leaves.    The 2012 coin had a round, smooth edge, as was the case for most of the penny&apos;s history; however, from 1982 to 1996, the coin was twelve-sided. This was done to help the visually impaired identify the coin"
+        android:id="@+id/Desc_tv_DescriptionText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Coin Note:"
+        android:id="@+id/Desc_tv_NoteTitle" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+        <!--android:text=""-->
+        <!--android:id="@+id/Desc_et_NoteText" />-->
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/Desc_et_NoteText" />
+
+</LinearLayout>
