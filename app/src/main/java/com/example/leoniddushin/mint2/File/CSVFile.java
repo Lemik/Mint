@@ -83,7 +83,7 @@ public class CSVFile {
         return clolectionList;
     }
     public ArrayList<Collection> putCollectionsToDB() {
-        ArrayList<Collection> clolectionList = new ArrayList<Collection>();
+        ArrayList<Collection> collectionList = new ArrayList<Collection>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             String csvLine;
@@ -96,7 +96,7 @@ public class CSVFile {
                 cl.setCountry(row[3].trim());
                 cl.setBelongings(Integer.parseInt(row[4].trim()));
                 cl.setImg(row[5].trim());
-                clolectionList.add(cl);
+                collectionList.add(cl);
             }
         } catch (IOException ex) {
             throw new RuntimeException("Error in reading CSV file: " + ex);
@@ -107,8 +107,9 @@ public class CSVFile {
                 throw new RuntimeException("Error while closing input stream: " + e);
             }
         }
-        return clolectionList;
+        return collectionList;
     }
+
     public ArrayList<Country> getCountry() {
         ArrayList<Country> clolectionList = new ArrayList<Country>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -116,13 +117,12 @@ public class CSVFile {
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
                 String[] row = csvLine.split("\\|");
-
                 Country cl = new Country();
+
                 cl.setId(Integer.parseInt(row[0].trim()));
                 cl.setName(row[1].trim());
                 cl.setCount(Integer.parseInt(row[2].trim()));
                 cl.setImageName(row[3].trim());
-
                 clolectionList.add(cl);
 
             }
@@ -137,4 +137,7 @@ public class CSVFile {
         }
         return clolectionList;
     }
+
+
+
 }

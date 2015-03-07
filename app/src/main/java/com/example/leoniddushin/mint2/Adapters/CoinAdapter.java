@@ -116,7 +116,6 @@ public class CoinAdapter extends BaseAdapter {
     public int getId(int position){
         return coinList.get(position).getId();
     }
-
     public String getTitle(int position){
         return coinList.get(position).getTitle();
     }

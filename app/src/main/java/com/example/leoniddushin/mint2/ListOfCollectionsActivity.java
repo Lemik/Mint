@@ -24,6 +24,7 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 
     private MySQLiteHelper db;
     private SimpleCursorAdapter mAdapter;
+    private String collectionid;
 
     ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
@@ -45,11 +46,12 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 //get parameter
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
+        collectionid =intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
         countryName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID);
 
         if(collectionName.equals("NEW")) {
             //todo Load all collections from file
-            Collection.setCollections(db.getCollectinsByCountry(countryName));
+            Collection.setCollections(db.getCollectionsByCountry(countryName));
         }
         else if(collectionName.equals("MY_COLLECCTIONS")){
             //todo Load all collections from DB with belongins = 1
@@ -68,19 +70,25 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                //loading Collections
-                int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(),"raw",getPackageName());
-                InputStream inputStream = getResources().openRawResource(i);
 
-                CSVFile csvFile = new CSVFile(inputStream);
-                ArrayList<Coin> coinList = csvFile.getCoins();
-                Collection.loadCollectionFromFile(coinList);
+                if(collectionid.equals("NEW")) {
 
-                //Open Collection Activity
-                Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
-                String name = Collection.collectionList.get(position).getName();
-                intent.putExtra("COLLECTION_NAME",name);
-                startActivity(intent);
+                }
+                else {
+                    //loading Collections
+                    int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
+                    InputStream inputStream = getResources().openRawResource(i);
+
+                    CSVFile csvFile = new CSVFile(inputStream);
+                    ArrayList<Coin> coinList = csvFile.getCoins();
+                    Collection.loadCollectionFromFile(coinList);
+
+                    //Open Collection Activity
+                    Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
+                    String name = Collection.collectionList.get(position).getName();
+                    intent.putExtra("COLLECTION_NAME", name);
+                    startActivity(intent);
+                }
             }
         });
         }

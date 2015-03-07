@@ -111,7 +111,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         return collections;
     }
 
-    public ArrayList<Collection> getCollectinsByCountry(String countryName){
+    public ArrayList<Collection> getCollectionsByCountry(String countryName){
         String query = "SELECT * FROM " + COLLECTION_TBL + " where Country='"+countryName+"'";
         ArrayList<Collection> collectionArrayList = setCollectionProperty(query);
         if(collectionArrayList.size()==0) {

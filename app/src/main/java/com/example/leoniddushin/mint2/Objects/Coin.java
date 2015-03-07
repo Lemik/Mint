@@ -3,6 +3,7 @@ package com.example.leoniddushin.mint2.Objects;
 public class Coin {
 
     private int id;
+    private int FK_collection; // Collection  ID
     private String title;//
     private String year;//year
     private String mint;//where it was produced
@@ -11,12 +12,14 @@ public class Coin {
     private String grade;//
     private String description;//
     private String note;//
-    private String imgA;//
-    private String imgB;
+    private String imgA;// front side image
+    private String imgB;// back
 
     public int getId() {
         return id;
     }
+
+    public int getFK_collection(){return FK_collection;}
 
     public String getTitle() {
         return title;
@@ -64,6 +67,10 @@ public class Coin {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setFK_collection(int FK_collection) {
+        this.FK_collection = FK_collection;
     }
 
     public void setTitle(String title) {
