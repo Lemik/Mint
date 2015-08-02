@@ -15,6 +15,23 @@ public class Coin {
     private String imgA;// front side image
     private String imgB;// back
 
+    public Coin(){}
+
+    public Coin(int id, int FK_collection, String title, String year, String mint, int count, String nominal, String grade, String description, String note, String imgA, String imgB) {
+        this.id = id;
+        this.FK_collection = FK_collection;
+        this.title = title;
+        this.year = year;
+        this.mint = mint;
+        this.count = count;
+        this.nominal = nominal;
+        this.grade = grade;
+        this.description = description;
+        this.note = note;
+        this.imgA = imgA;
+        this.imgB = imgB;
+    }
+
     public int getId() {
         return id;
     }

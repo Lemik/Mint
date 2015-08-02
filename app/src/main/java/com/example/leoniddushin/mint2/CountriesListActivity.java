@@ -44,7 +44,6 @@ public class CountriesListActivity extends ActionBarActivity {
             }
         });
     }
-
 /////Menu///////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,7 +67,6 @@ public class CountriesListActivity extends ActionBarActivity {
 
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -48,14 +48,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     static final String VERSION_TBL = "VershenTBL";
     final private static String CREATE_MINT_VERSION =
         "CREATE TABLE "  + VERSION_TBL + "(Version INTEGER)";
-        
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         if (db.getVersion() != VERSION)
             db.execSQL(CREATE_COLLECTION_TABLE);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -86,7 +84,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
 
     public ArrayList<Collection> getAllCollection() {
-        String query = "SELECT * FROM " + COLLECTION_TBL;
+        String query = "SELECT * FROM " + COLLECTION_TBL +" WHERE "+KEY_Belongs+"=1";
         return setCollectionProperty(query);
     }
 
@@ -112,23 +110,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
 
     public ArrayList<Collection> getCollectionsByCountry(String countryName){
-        String query = "SELECT * FROM " + COLLECTION_TBL + " where Country='"+countryName+"'";
+        String query = "SELECT * FROM " + COLLECTION_TBL + " where Country='"+countryName+"'" +
+                                                             " AND " + KEY_Belongs+"=0";
         ArrayList<Collection> collectionArrayList = setCollectionProperty(query);
+
+        //if there is no collections
         if(collectionArrayList.size()==0) {
             InputStream inputStream = context.getResources().openRawResource(R.raw.collections);
             CSVFile csvFile = new CSVFile(inputStream);
-            //collectionArrayList = csvFile.getCollections();
 
-            collectionArrayList = csvFile.putCollectionsToDB();
-            Iterator<Collection> it = collectionArrayList.iterator();
+            collectionArrayList = csvFile.getCollectionsFromFile();
 
             for(int i=0; i<collectionArrayList.size(); i++){
                 addCollection(new Collection(collectionArrayList.get(i).getId(),
-                        collectionArrayList.get(i).getName(),
-                        collectionArrayList.get(i).getCount(),
-                        collectionArrayList.get(i).getCountry(),
-                        collectionArrayList.get(i).getBelongings(),
-                        collectionArrayList.get(i).getImg()));
+                                             collectionArrayList.get(i).getName(),
+                                             collectionArrayList.get(i).getCount(),
+                                             collectionArrayList.get(i).getCountry(),
+                                             collectionArrayList.get(i).getBelongings(),
+                                             collectionArrayList.get(i).getImg()));
             }
         }
         collectionArrayList = setCollectionProperty(query);

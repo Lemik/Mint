@@ -12,6 +12,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
+import com.example.leoniddushin.mint2.DB.CoinDBHelper;
 import com.example.leoniddushin.mint2.File.CSVFile;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.Objects.Collection;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 public class ListOfCollectionsActivity extends ActionBarActivity {
 
     private MySQLiteHelper db;
+    private CoinDBHelper coindb;
     private SimpleCursorAdapter mAdapter;
     private String collectionid;
 
@@ -36,18 +38,22 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         setContentView(R.layout.my_collections_list);
         // Create a new DatabaseHelper
 
+        coindb = new CoinDBHelper(this);
+      //  coindb.deleteDatabase();
+
         db = new MySQLiteHelper(this);
-        db.deleteDatabase();
+      //  db.deleteDatabase();
+//        db.deleteDatabase();
 //          if(db.getNumberOfCollections()==0){
-//                db.addCollection(new Collection(1,"canada_cent",100,"Canada",0,"ic_c1"));
+//                db.addCollection(new Collection(1,"canada_cent",100,"Canada",1,"ic_c1"));
 //                db.addCollection(new Collection(1,"canada_cent",100,"Canada",0,"ic_c1"));
 //                db.addCollection(new Collection(1,"canada_cent",100,"Canada",0,"ic_c1"));
 //          }
 //get parameter
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
-        collectionid =intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
-        countryName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID);
+        collectionid =          intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
+        countryName =           intent.getStringExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID);
 
         if(collectionName.equals("NEW")) {
             //todo Load all collections from file
@@ -69,19 +75,44 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-
                 if(collectionid.equals("NEW")) {
+                    //add new collection
+                    String collectionName = Collection.collectionList.get(position).getName();
+                    int count = Collection.collectionList.get(position).getCount();
+                    String country = Collection.collectionList.get(position).getCountry();
+                    String icon = Collection.collectionList.get(position).getImg();
+                    int newcollection = Collection.collectionList.size()+2; //todo need to get correct number of existing collections
+                db.addCollection(new Collection(newcollection,collectionName,count,country,1,icon));
 
+                    foo(collectionName,newcollection);
+                   //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
+                   //InputStream inputStream = getResources().openRawResource(i);
+
+                   // CSVFile csvFile = new CSVFile(inputStream);
+                   // ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
+
+//                    Collection.loadCollectionFromFile(coinList);
+
+//                    //Open Collection Activity
+//                    Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
+//                    String name = Collection.collectionList.get(position).getName();
+//                    intent.putExtra("COLLECTION_NAME", name);
+//                    startActivity(intent);
                 }
                 else {
                     //loading Collections
-                    int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
-                    InputStream inputStream = getResources().openRawResource(i);
-
-                    CSVFile csvFile = new CSVFile(inputStream);
-                    ArrayList<Coin> coinList = csvFile.getCoins();
+//                    int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
+//                    InputStream inputStream = getResources().openRawResource(i);
+//
+//                    CSVFile csvFile = new CSVFile(inputStream);
+//                    ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
+//                    Collection.loadCollectionFromFile(coinList);
+///
+                    int i = Collection.collectionList.get(position).getId();
+                    ArrayList<Coin> coinList =  load(i);
                     Collection.loadCollectionFromFile(coinList);
+                    ////
+
 
                     //Open Collection Activity
                     Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
@@ -92,6 +123,17 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
             }
         });
         }
+    private ArrayList<Coin> load(int id){
+        coindb = new CoinDBHelper(this);
+        ArrayList<Coin> coinList = coindb.getCoinFromCatalogByCollectionID(id);
+        return coinList;
+
+    }
+    private void foo(String CppeCollectionName, int CollectionId){
+        coindb = new CoinDBHelper(this);
+        coindb.addNewCollectionToDB(CppeCollectionName, CollectionId);
+        coindb.getCoinFromCatalogByCollectionID(1);//set ID
+    }
 //MENU
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

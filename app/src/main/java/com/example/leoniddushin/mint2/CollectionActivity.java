@@ -17,6 +17,7 @@ import com.example.leoniddushin.mint2.Objects.Collection;
 public class CollectionActivity  extends ActionBarActivity {
 
     protected static final String EXTRA_RES_ID = "POSITION";
+    protected static final String COLLECTION_NAME = "COLLECTION_NAME";
 
     GridView gridView;
     CoinAdapter adapter;
@@ -31,7 +32,7 @@ public class CollectionActivity  extends ActionBarActivity {
         // Get the Intent used to start this Activity
         Intent intent = getIntent();
         //set title
-        setTitle(intent.getStringExtra("COLLECTION_NAME"));//todo move to parametrs
+        setTitle(intent.getStringExtra(COLLECTION_NAME));//todo move to parametrs
 
         //todo Add logic to accept collection from main screen
         adapter = new CoinAdapter(this, Collection.coinList);
@@ -45,6 +46,7 @@ public class CollectionActivity  extends ActionBarActivity {
                     Toast.makeText(CollectionActivity.this, "Update", Toast.LENGTH_SHORT).show();
 
                    // ArrayList<Coin> c = Collection.coinList;
+
                     adapter.change(position);
                     adapter.notifyDataSetChanged();
                 }

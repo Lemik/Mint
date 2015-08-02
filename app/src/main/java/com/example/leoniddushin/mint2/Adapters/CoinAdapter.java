@@ -110,6 +110,8 @@ public class CoinAdapter extends BaseAdapter {
         int i = coinList.get(position).getCount();
         if (i==0)
             coinList.get(position).setCount(1);
+
+
         else
             coinList.get(position).setCount(0);
     }

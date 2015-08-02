@@ -24,7 +24,7 @@ public class CSVFile {
         this.inputStream = inputStream;
     }
 
-    public ArrayList<Coin> getCoins() {
+    public ArrayList<Coin> getCoinsFromFile() {
         ArrayList<Coin> coinList = new ArrayList<Coin>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -55,34 +55,35 @@ public class CSVFile {
         }
         return coinList;
     }
-    public ArrayList<Collection> getCollections() {
-        ArrayList<Collection> clolectionList = new ArrayList<Collection>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            String csvLine;
-            while ((csvLine = reader.readLine()) != null) {
-                String[] row = csvLine.split("\\|");
-                Collection cl = new Collection();
-                cl.setId(Integer.parseInt(row[0].trim()));
-                cl.setName(row[1].trim());
-                cl.setCount(Integer.parseInt(row[2].trim()));
-                cl.setCountry(row[3]);
-                cl.setBelongings(Integer.parseInt(row[4].trim()));
-                cl.setImg(row[5].trim());
-                clolectionList.add(cl);
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException("Error in reading CSV file: " + ex);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                throw new RuntimeException("Error while closing input stream: " + e);
-            }
-        }
-        return clolectionList;
-    }
-    public ArrayList<Collection> putCollectionsToDB() {
+//    public ArrayList<Collection> getCollections() {
+//        ArrayList<Collection> clolectionList = new ArrayList<Collection>();
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//        try {
+//            String csvLine;
+//            while ((csvLine = reader.readLine()) != null) {
+//                String[] row = csvLine.split("\\|");
+//                Collection cl = new Collection();
+//                cl.setId(Integer.parseInt(row[0].trim()));
+//                cl.setName(row[1].trim());
+//                cl.setCount(Integer.parseInt(row[2].trim()));
+//                cl.setCountry(row[3]);
+//                cl.setBelongings(Integer.parseInt(row[4].trim()));
+//                cl.setImg(row[5].trim());
+//                clolectionList.add(cl);
+//            }
+//        } catch (IOException ex) {
+//            throw new RuntimeException("Error in reading CSV file: " + ex);
+//        } finally {
+//            try {
+//                inputStream.close();
+//            } catch (IOException e) {
+//                throw new RuntimeException("Error while closing input stream: " + e);
+//            }
+//        }
+//        return clolectionList;
+//    }
+
+    public ArrayList<Collection> getCollectionsFromFile() {
         ArrayList<Collection> collectionList = new ArrayList<Collection>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -110,7 +111,7 @@ public class CSVFile {
         return collectionList;
     }
 
-    public ArrayList<Country> getCountry() {
+    public ArrayList<Country> getCountryFromFile() {
         ArrayList<Country> clolectionList = new ArrayList<Country>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -124,7 +125,6 @@ public class CSVFile {
                 cl.setCount(Integer.parseInt(row[2].trim()));
                 cl.setImageName(row[3].trim());
                 clolectionList.add(cl);
-
             }
         } catch (IOException ex) {
             throw new RuntimeException("Error in reading CSV file: " + ex);
@@ -137,7 +137,4 @@ public class CSVFile {
         }
         return clolectionList;
     }
-
-
-
 }

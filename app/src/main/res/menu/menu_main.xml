@@ -32,7 +32,7 @@
     <item
         android:id="@+id/menu_refresh"
         android:icon="@drawable/ic_action_lock_o"
-        android:title="@string/menu_refresh"
+        android:title="delete All"
         support:showAsAction="ifRoom"/>
 
     <!-- Location item is added in onCreateOptionsMenu() -->

@@ -24,7 +24,7 @@ public class CountriesAdapter extends BaseAdapter {
 
         InputStream inputStream = context.getResources().openRawResource(R.raw.countrys);
         CSVFile csvFile = new CSVFile(inputStream);
-        this.countryList = csvFile.getCountry();
+        this.countryList = csvFile.getCountryFromFile();
     }
 
     private Context context;

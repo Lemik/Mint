@@ -2,6 +2,8 @@ package com.example.leoniddushin.mint2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,10 +11,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.leoniddushin.mint2.DB.CoinDBHelper;
+import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
+import com.example.leoniddushin.mint2.Objects.Coin;
+import com.example.leoniddushin.mint2.Objects.Collection;
+
+import java.util.ArrayList;
+
 public class StartActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        CoinDBHelper coindb;
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 //My Collection
@@ -37,7 +50,6 @@ public class StartActivity extends Activity {
 //New Collection
         final Button button2 = (Button) findViewById(R.id.s_b_NewCollection);
         button2.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 Toast.makeText(StartActivity.this, "Please select country", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(StartActivity.this, CountriesListActivity.class);
@@ -50,13 +62,51 @@ public class StartActivity extends Activity {
         button3.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Toast.makeText(StartActivity.this, "Manage Collections", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(StartActivity.this, "Manage Collections", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartActivity.this, "Test", Toast.LENGTH_SHORT).show();
+               // foo2();
+               //foo();
+
 
             }
         });
+
     }
+private void deletealAll(){
+    CoinDBHelper coindb = new CoinDBHelper(this);
+    coindb.deleteDatabase();
+
+    MySQLiteHelper db = new MySQLiteHelper(this);
+    db.deleteDatabase();
+}
+    private void foo(){
+        Coin c1 = new Coin(1,1,"1","1","1",1,"1","1","1","1","ic_c1","ic_cb");
+        Collection col1 = new Collection(1,"canada_cent",100,"Canada",1,"ic_c1");
+        //CoinDBHelper coindb = new CoinDBHelper(this);
+        ArrayList<Coin> coinList = new ArrayList<Coin>();
+        coinList.add(c1);
+        col1.coinList=coinList;
 
 
+        Intent intent = new Intent(StartActivity.this, CollectionActivity.class);
+        intent.putExtra("COLLECTION_NAME", "test");
+        startActivity(intent);
+    }
+    private void foo2(){
+        MySQLiteHelper dbm = new MySQLiteHelper(this);
+       // dbm.deleteDatabase();
+        SQLiteDatabase db = dbm.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from Collections", null);
+        //db.deleteDatabase();
+
+
+        CoinDBHelper coindb = new CoinDBHelper(this);
+        SQLiteDatabase db1 = coindb.getWritableDatabase();
+        Cursor cursor1 = db1.rawQuery("Select * from Coin", null);
+        //coindb.deleteDatabase();
+
+
+    }
     // BEGIN_INCLUDE(create_menu)
     /**
      * Use this method to instantiate your menu, and add your items to it. You
@@ -91,6 +141,7 @@ public class StartActivity extends Activity {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
                 // Here we might start a background refresh task
+                deletealAll();
                 return true;
 
 //            case R.id.menu_location:
