@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.leoniddushin.mint2.DB.CoinDBHelper;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.R;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class CoinAdapter extends BaseAdapter {
     private ArrayList<Coin> coinList = new ArrayList<Coin>();
     private Context context;
+  //  private CoinDBHelper coinDBHelper = new CoinDBHelper(this.context) ;
 
     public CoinAdapter(Context context,ArrayList<Coin> coinList) {
         this.context =  context;
@@ -54,7 +57,7 @@ public class CoinAdapter extends BaseAdapter {
      */
     @Override
     public long getItemId(int position) {
-        return 0;//coinList.get(position).id;
+        return coinList.get(position).getId();
     }
 
     /**
@@ -108,12 +111,19 @@ public class CoinAdapter extends BaseAdapter {
     }
     public void change(int position){
         int i = coinList.get(position).getCount();
-        if (i==0)
+        CoinDBHelper coinDBHelper = new CoinDBHelper(this.context);
+
+        if (i==0) {
             coinList.get(position).setCount(1);
 
+            coinDBHelper.changeCoinState(coinList.get(position).getId(),1);
+        }
 
-        else
+        else {
             coinList.get(position).setCount(0);
+            coinDBHelper.changeCoinState(coinList.get(position).getId(),0);
+
+        }
     }
     public int getId(int position){
         return coinList.get(position).getId();

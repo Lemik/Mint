@@ -76,7 +76,7 @@ public class Collection {
 
 //###############################################################
     public static ArrayList<Coin> coinList = new ArrayList<Coin>();
-    public static void loadCollectionFromFile(ArrayList<Coin> coinListNew){
+    public static void setColectionfromCointList(ArrayList<Coin> coinListNew){
         Collection.coinList = coinListNew;
     }
 }

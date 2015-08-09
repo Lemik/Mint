@@ -1,5 +1,6 @@
 package com.example.leoniddushin.mint2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CoinAdapter;
+import com.example.leoniddushin.mint2.DB.CoinDBHelper;
 import com.example.leoniddushin.mint2.Objects.Collection;
 
 
@@ -22,6 +24,8 @@ public class CollectionActivity  extends ActionBarActivity {
     GridView gridView;
     CoinAdapter adapter;
     public boolean loсk = true;
+    private Context context;
+    private CoinDBHelper coinDBHelper = new CoinDBHelper(context) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class CollectionActivity  extends ActionBarActivity {
                    // ArrayList<Coin> c = Collection.coinList;
 
                     adapter.change(position);
+                   // coinDBHelper.changeCoinState(adapter.getId(position),1);
                     adapter.notifyDataSetChanged();
                 }
                 else{

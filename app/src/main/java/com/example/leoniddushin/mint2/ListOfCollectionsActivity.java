@@ -13,12 +13,10 @@ import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
-import com.example.leoniddushin.mint2.File.CSVFile;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.Objects.Collection;
 import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ListOfCollectionsActivity extends ActionBarActivity {
@@ -39,16 +37,8 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         // Create a new DatabaseHelper
 
         coindb = new CoinDBHelper(this);
-      //  coindb.deleteDatabase();
-
         db = new MySQLiteHelper(this);
-      //  db.deleteDatabase();
-//        db.deleteDatabase();
-//          if(db.getNumberOfCollections()==0){
-//                db.addCollection(new Collection(1,"canada_cent",100,"Canada",1,"ic_c1"));
-//                db.addCollection(new Collection(1,"canada_cent",100,"Canada",0,"ic_c1"));
-//                db.addCollection(new Collection(1,"canada_cent",100,"Canada",0,"ic_c1"));
-//          }
+
 //get parameter
         Intent intent = getIntent();
         String collectionName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
@@ -64,7 +54,7 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
             Collection.setCollections(db.getAllCollection());
         }
 
-        if(Collection.collectionList.size()==0){
+        if(db.getNumberOfCollections()==0){
             // Show Toast message
             Toast.makeText(ListOfCollectionsActivity.this, "You don't have any collections", Toast.LENGTH_SHORT).show();
             //todo add button to add new collection
@@ -81,8 +71,9 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
                     int count = Collection.collectionList.get(position).getCount();
                     String country = Collection.collectionList.get(position).getCountry();
                     String icon = Collection.collectionList.get(position).getImg();
-                    int newcollection = Collection.collectionList.size()+2; //todo need to get correct number of existing collections
-                db.addCollection(new Collection(newcollection,collectionName,count,country,1,icon));
+                    //int newcollection = Collection.collectionList.size()+1; //todo need to get correct number of existing collections
+                    int newcollection = db.getNumberOfCollections()+1;
+                    db.addCollection(new Collection(newcollection,collectionName,count,country,1,icon));
 
                     foo(collectionName,newcollection);
                    //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
@@ -91,7 +82,7 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
                    // CSVFile csvFile = new CSVFile(inputStream);
                    // ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
 
-//                    Collection.loadCollectionFromFile(coinList);
+//                    Collection.setColectionfromCointList(coinList);
 
 //                    //Open Collection Activity
 //                    Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
@@ -106,13 +97,10 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 //
 //                    CSVFile csvFile = new CSVFile(inputStream);
 //                    ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
-//                    Collection.loadCollectionFromFile(coinList);
+//                    Collection.setColectionfromCointList(coinList);
 ///
                     int i = Collection.collectionList.get(position).getId();
-                    ArrayList<Coin> coinList =  load(i);
-                    Collection.loadCollectionFromFile(coinList);
-                    ////
-
+                    Collection.coinList = loadCoinList(i);
 
                     //Open Collection Activity
                     Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
@@ -123,16 +111,17 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
             }
         });
         }
-    private ArrayList<Coin> load(int id){
+    private ArrayList<Coin> loadCoinList(int id){
         coindb = new CoinDBHelper(this);
-        ArrayList<Coin> coinList = coindb.getCoinFromCatalogByCollectionID(id);
+        ArrayList<Coin> coinList = coindb.getCoinsArrayListFromCatalogByCollectionID(id);
         return coinList;
 
     }
     private void foo(String CppeCollectionName, int CollectionId){
         coindb = new CoinDBHelper(this);
         coindb.addNewCollectionToDB(CppeCollectionName, CollectionId);
-        coindb.getCoinFromCatalogByCollectionID(1);//set ID
+        coindb.getCoinsArrayListFromCatalogByCollectionID(1);//set ID
+        Toast.makeText(ListOfCollectionsActivity.this, "collections have been added to collection", Toast.LENGTH_LONG).show();
     }
 //MENU
     @Override
@@ -165,10 +154,6 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 // Close database
 @Override
 protected void onDestroy() {
-
-   // db.getWritableDatabase().close();
-   // db.deleteDatabase();
-
     super.onDestroy();
 
 }

@@ -71,6 +71,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
     public void addCoinToCatalog(Coin coin) {
         Log.d("Add Coin", coin.toString());
         SQLiteDatabase db = this.getWritableDatabase();
+        if (db == null) {return; }
         ContentValues values = new ContentValues();
         values.put(KEY_FK_collection, coin.getFK_collection());
         values.put(KEY_title, coin.getTitle());
@@ -113,15 +114,15 @@ public class CoinDBHelper extends SQLiteOpenHelper {
                 coins.add(coin);
             } while (cursor.moveToNext());
         }
+        db.close();
         return coins;
     }
 
 
-    public ArrayList<Coin> getCoinFromCatalogByCollectionID(int ID) {
+    public ArrayList<Coin> getCoinsArrayListFromCatalogByCollectionID(int ID) {
         Log.d("Get Coin from DB by ID", String.valueOf(ID));
         String query = "SELECT * FROM " + COIN_TBL + " where " + KEY_FK_collection + "='" + ID + "'";
         ArrayList<Coin> collectionArrayList = setCoinProperty(query);
-
         return  collectionArrayList;
     }
     public void addNewCollectionToDB(String collectionName, int CollectionId){
@@ -153,6 +154,18 @@ public class CoinDBHelper extends SQLiteOpenHelper {
                                       collectionArrayList.get(i).getImgA(),
                                       collectionArrayList.get(i).getImgB()));
         }
+    }
+
+    public void changeCoinState(int CoinId, int count){
+    Log.d("change Coin State by coin ID  = ", String.valueOf(CoinId));
+    SQLiteDatabase db = this.getWritableDatabase();
+    if (db == null) {
+        return;
+    }
+    ContentValues row = new ContentValues();
+    row.put(KEY_count,count);
+    db.update(COIN_TBL, row, KEY_ID + " = ?", new String[] { String.valueOf(CoinId) } );
+    db.close();
     }
 
     public void deleteDatabase() {

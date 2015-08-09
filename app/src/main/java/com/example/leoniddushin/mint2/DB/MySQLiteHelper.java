@@ -87,6 +87,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         String query = "SELECT * FROM " + COLLECTION_TBL +" WHERE "+KEY_Belongs+"=1";
         return setCollectionProperty(query);
     }
+    public ArrayList<Collection> getAllCollectionByCountry(String countryName, String belong) {
+        String query = "SELECT * FROM " + COLLECTION_TBL +" WHERE "+KEY_Belongs+"="+belong+" AND "
+                                                                   +KEY_COUNT+"="+countryName;
+
+        return setCollectionProperty(query);
+    }
 
     private ArrayList<Collection> setCollectionProperty(String query) {
         ArrayList<Collection> collections = new ArrayList<Collection>();
@@ -110,11 +116,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     }
 
     public ArrayList<Collection> getCollectionsByCountry(String countryName){
-        String query = "SELECT * FROM " + COLLECTION_TBL + " where Country='"+countryName+"'" +
-                                                             " AND " + KEY_Belongs+"=0";
+        String query = "SELECT * FROM " + COLLECTION_TBL + " where " + KEY_Country + " = '"+countryName+"'" +
+                                                             " AND " + KEY_Belongs+" =0 ";
         ArrayList<Collection> collectionArrayList = setCollectionProperty(query);
-
-        //if there is no collections
+        //region if there is no collections we going to load them from file
         if(collectionArrayList.size()==0) {
             InputStream inputStream = context.getResources().openRawResource(R.raw.collections);
             CSVFile csvFile = new CSVFile(inputStream);
@@ -130,6 +135,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
                                              collectionArrayList.get(i).getImg()));
             }
         }
+        //endregion
         collectionArrayList = setCollectionProperty(query);
     return  collectionArrayList;
     }
