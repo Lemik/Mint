@@ -94,7 +94,9 @@ public class CollectionAdapter extends BaseAdapter {
         int icon = context.getResources().getIdentifier(collections.get(position).getImg(),"drawable",context.getPackageName());
         imageView.setImageResource(icon);
         title.setText(collections.get(position).getName());
-        count.setText("0 / " + collections.get(position).getCount());//todo add how many coins in collection from DB
+        int howManyCoinsInCollection = collections.get(position).getCount();
+       // int howManyCoinsInColected =
+        count.setText("0 / " + howManyCoinsInCollection);//todo add how many coins in collection from DB
 
         return listView;
     }

@@ -71,11 +71,10 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
                     int count = Collection.collectionList.get(position).getCount();
                     String country = Collection.collectionList.get(position).getCountry();
                     String icon = Collection.collectionList.get(position).getImg();
-                    //int newcollection = Collection.collectionList.size()+1; //todo need to get correct number of existing collections
                     int newcollection = db.getNumberOfCollections()+1;
                     db.addCollection(new Collection(newcollection,collectionName,count,country,1,icon));
 
-                    foo(collectionName,newcollection);
+                    addCollectiontoDB(collectionName, newcollection);
                    //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
                    //InputStream inputStream = getResources().openRawResource(i);
 
@@ -117,10 +116,12 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         return coinList;
 
     }
-    private void foo(String CppeCollectionName, int CollectionId){
+    private void addCollectiontoDB(String CppeCollectionName, int CollectionId){
         coindb = new CoinDBHelper(this);
         coindb.addNewCollectionToDB(CppeCollectionName, CollectionId);
         coindb.getCoinsArrayListFromCatalogByCollectionID(1);//set ID
+        //todo Change Toast message
+        //todo Add spiner if it taking long
         Toast.makeText(ListOfCollectionsActivity.this, "collections have been added to collection", Toast.LENGTH_LONG).show();
     }
 //MENU
@@ -152,9 +153,8 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 
 //DB
 // Close database
-@Override
-protected void onDestroy() {
-    super.onDestroy();
-
-}
+//@Override
+//protected void onDestroy() {
+//    super.onDestroy();
+//}
 }
