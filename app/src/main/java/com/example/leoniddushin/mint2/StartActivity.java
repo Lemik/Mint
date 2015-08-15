@@ -40,7 +40,7 @@ public class StartActivity extends Activity {
                 Intent intent = new Intent(StartActivity.this, ListOfCollectionsActivity.class);
 
                 // Add the ID of the thumbnail to display as an Intent Extra
-                intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "MY_COLLECCTIONS");
+                //intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "MY_COLLECCTIONS");
 
                 // Start the ImageViewActivity
                 startActivity(intent);
@@ -54,7 +54,6 @@ public class StartActivity extends Activity {
                 Toast.makeText(StartActivity.this, "Please select country", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(StartActivity.this, CountriesListActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -66,8 +65,6 @@ public class StartActivity extends Activity {
                 Toast.makeText(StartActivity.this, "Test", Toast.LENGTH_SHORT).show();
                // foo2();
                //foo();
-
-
             }
         });
 

@@ -1,14 +1,15 @@
 package com.example.leoniddushin.mint2;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.example.leoniddushin.mint2.Adapters.CountriesAdapter;
 
 
@@ -33,10 +34,10 @@ public class CountriesListActivity extends ActionBarActivity {
                 Toast.makeText(CountriesListActivity.this, "Open all Country available collections", Toast.LENGTH_SHORT).show();
 
                 //Create an Intent to start the ListOfCollectionsActivity
-                Intent intent = new Intent(CountriesListActivity.this, ListOfCollectionsActivity.class);
+                Intent intent = new Intent(CountriesListActivity.this, NewListOfCollectionsActivity.class);
 
                 // Add the ID of the thumbnail to display as an Intent Extra
-                intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "NEW");
+                //intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "NEW");
                 intent.putExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID, countriesAdapter.countryList.get(position).getName());
 
                 // Start the ImageViewActivity
