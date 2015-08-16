@@ -22,7 +22,7 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 
     private MySQLiteHelper db;
     private CoinDBHelper coindb;
-    private String collectionid;
+//    private String collectionid;
 
     ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
@@ -150,12 +150,4 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-//DB
-// Close database
-//@Override
-//protected void onDestroy() {
-//    super.onDestroy();
-//}
 }
