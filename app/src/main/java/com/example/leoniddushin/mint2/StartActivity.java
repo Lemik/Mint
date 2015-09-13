@@ -2,8 +2,6 @@ package com.example.leoniddushin.mint2;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,98 +11,59 @@ import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
 import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
-import com.example.leoniddushin.mint2.Objects.Coin;
-import com.example.leoniddushin.mint2.Objects.Collection;
-
-import java.util.ArrayList;
 
 public class StartActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        CoinDBHelper coindb;
-
-
+//       CoinDBHelper coindb;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 //My Collection
-        final Button button = (Button) findViewById(R.id.s_b_MyCollections);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button myCollection = (Button) findViewById(R.id.s_b_MyCollections);
+        myCollection.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //todo добавить возможность выбирать в настройках что бы показывать все мои коллекции организавав их по страннам
                 // Show Toast message
                 Toast.makeText(StartActivity.this, "Loading collections", Toast.LENGTH_SHORT).show();
-
                 //Create an Intent to start the ListOfCollectionsActivity
                 Intent intent = new Intent(StartActivity.this, ListOfCollectionsActivity.class);
-
                 // Add the ID of the thumbnail to display as an Intent Extra
                 //intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "MY_COLLECCTIONS");
-
                 // Start the ImageViewActivity
                 startActivity(intent);
             }
 
         });
 //New Collection
-        final Button button2 = (Button) findViewById(R.id.s_b_NewCollection);
-        button2.setOnClickListener(new View.OnClickListener() {
+        final Button newCollection = (Button) findViewById(R.id.s_b_NewCollection);
+        newCollection.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(StartActivity.this, "Please select country", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(StartActivity.this, CountriesListActivity.class);
                 startActivity(intent);
             }
         });
-
-        final Button button3 = (Button) findViewById(R.id.s_b_ManageCollections);
-        button3.setOnClickListener(new View.OnClickListener() {
-
+//Search
+        final Button search = (Button) findViewById(R.id.s_b_Search);
+        search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Toast.makeText(StartActivity.this, "Manage Collections", Toast.LENGTH_SHORT).show();
-                Toast.makeText(StartActivity.this, "Test", Toast.LENGTH_SHORT).show();
-               // foo2();
-               //foo();
+                Toast.makeText(StartActivity.this, "Search", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(StartActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
 
     }
-private void deletealAll(){
-    CoinDBHelper coindb = new CoinDBHelper(this);
-    coindb.deleteDatabase();
 
-    MySQLiteHelper db = new MySQLiteHelper(this);
-    db.deleteDatabase();
-}
-    private void foo(){
-        Coin c1 = new Coin(1,1,"1","1","1",1,"1","1","1","1","ic_c1","ic_cb");
-        Collection col1 = new Collection(1,"canada_cent",100,"Canada",1,"ic_c1");
-        //CoinDBHelper coindb = new CoinDBHelper(this);
-        ArrayList<Coin> coinList = new ArrayList<Coin>();
-        coinList.add(c1);
-        col1.coinList=coinList;
-
-
-        Intent intent = new Intent(StartActivity.this, CollectionActivity.class);
-        intent.putExtra("COLLECTION_NAME", "test");
-        startActivity(intent);
-    }
-    private void foo2(){
-        MySQLiteHelper dbm = new MySQLiteHelper(this);
-       // dbm.deleteDatabase();
-        SQLiteDatabase db = dbm.getWritableDatabase();
-        Cursor cursor = db.rawQuery("Select * from Collections", null);
-        //db.deleteDatabase();
-
-
+    private void deleteAllInDb() {
         CoinDBHelper coindb = new CoinDBHelper(this);
-        SQLiteDatabase db1 = coindb.getWritableDatabase();
-        Cursor cursor1 = db1.rawQuery("Select * from Coin", null);
-        //coindb.deleteDatabase();
-
-
+        coindb.deleteDatabase();
+        MySQLiteHelper db = new MySQLiteHelper(this);
+        db.deleteDatabase();
     }
     // BEGIN_INCLUDE(create_menu)
+
     /**
      * Use this method to instantiate your menu, and add your items to it. You
      * should return true if you have added items to it and want the menu to be displayed.
@@ -128,6 +87,7 @@ private void deletealAll(){
     // END_INCLUDE(create_menu)
 
     // BEGIN_INCLUDE(menu_item_selected)
+
     /**
      * This method is called when one of the menu items to selected. These items
      * can be on the Action Bar, the overflow menu, or the standard options menu. You
@@ -138,7 +98,7 @@ private void deletealAll(){
         switch (item.getItemId()) {
             case R.id.menu_refresh:
                 // Here we might start a background refresh task
-                deletealAll();
+                deleteAllInDb();
                 return true;
 
 //            case R.id.menu_location:
@@ -152,9 +112,9 @@ private void deletealAll(){
                 startActivity(intent);
 
                 // not working (((
-               //Create an Intent to start the ImageViewActivity
-               // Intent intent = new Intent(MainActivity.this, CollectionActivity.class);
-               // startActivity(intent);
+                //Create an Intent to start the ImageViewActivity
+                // Intent intent = new Intent(MainActivity.this, CollectionActivity.class);
+                // startActivity(intent);
 
                 return true;
         }

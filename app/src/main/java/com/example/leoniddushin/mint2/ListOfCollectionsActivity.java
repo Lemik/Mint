@@ -22,8 +22,6 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
 
     private MySQLiteHelper db;
     private CoinDBHelper coindb;
-//    private SimpleCursorAdapter mAdapter;
-//    private String collectionid;
 
     ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
@@ -83,7 +81,6 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Toast.makeText(ListOfCollectionsActivity.this, "Settings", Toast.LENGTH_SHORT).show();

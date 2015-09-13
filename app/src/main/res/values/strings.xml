@@ -12,5 +12,7 @@
     <string name="title_activity_list_of_collections">My Collections:</string>
     <string name="title_activity_NEW_list_of_collections">Add new Collections:</string>
     <string name="title_activity_countries_list">Countries:</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_seach_by_year">Seach by year</string>
 
 </resources>

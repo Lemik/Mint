@@ -27,19 +27,22 @@
         </activity>
         <activity
             android:name=".DescriptionActivity"
-            android:label="@string/title_activity_description"></activity>
+            android:label="@string/title_activity_description" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".ListOfCollectionsActivity"
-            android:label="@string/title_activity_list_of_collections"></activity>
+            android:label="@string/title_activity_list_of_collections" />
         <activity
             android:name=".NewListOfCollectionsActivity"
-            android:label="@string/title_activity_NEW_list_of_collections"></activity>
+            android:label="@string/title_activity_NEW_list_of_collections" />
         <activity
             android:name=".CountriesListActivity"
-            android:label="@string/title_activity_countries_list"></activity>
+            android:label="@string/title_activity_countries_list" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"></activity>
     </application>
 
 </manifest>
