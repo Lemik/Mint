@@ -23,10 +23,8 @@ public class SearchAdapter extends BaseAdapter {
 
     public SearchAdapter(Context _context) {
         this.context = _context;
-        Search s1 = new Search(R.drawable.canada_25cent_a, "Year", "Search by Year");
-        Search s2 = new Search(R.drawable.usa_2007_washington_25, "Quantity", "Search by Quantity");
-        SearchOpshens.add(s1);
-        SearchOpshens.add(s2);
+        SearchOpshens.add(new Search(R.drawable.canada_25cent_a, "Year", "Search by Year"));
+        SearchOpshens.add(new Search(R.drawable.usa_2007_washington_25, "Nominal", "Search by Nominal"));
     }
 
     /**

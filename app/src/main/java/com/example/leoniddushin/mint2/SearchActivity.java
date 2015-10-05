@@ -44,7 +44,8 @@ public class SearchActivity extends ActionBarActivity {
                     case "Year":
                         searchByYear();
                         break;
-                    case "Quantity":
+                    case "Nominal":
+                        searchByNominal();
                         break;
                 }
             }
@@ -52,7 +53,7 @@ public class SearchActivity extends ActionBarActivity {
     }
 
     private void searchByYear() {
-        View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.activity_seach_by_year, null);
+        View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.seach_by_year, null);
         AlertDialog.Builder ab = new AlertDialog.Builder(SearchActivity.this);
         ab.setView(view);
         final EditText year = (EditText) view.findViewById(R.id.search_by_year);
@@ -63,7 +64,7 @@ public class SearchActivity extends ActionBarActivity {
                         Toast.makeText(SearchActivity.this, "Year = " + year.getText(), Toast.LENGTH_SHORT).show();
 //todo _year cheack for Integer
                         int _year = Integer.parseInt(year.getText().toString());
-                        Collection.coinList = loadCoinList(_year);
+                        Collection.coinList = loadCoinListByYear(_year);
 
                         //Open Collection Activity
                         Intent intent = new Intent(SearchActivity.this, CollectionActivity.class);
@@ -76,9 +77,42 @@ public class SearchActivity extends ActionBarActivity {
         dialog.show();
     }
 
-    private ArrayList<Coin> loadCoinList(int year) {
+    private void searchByNominal() {
+        View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.seach_by_nominal, null);
+
+        AlertDialog.Builder ab = new AlertDialog.Builder(SearchActivity.this);
+        ab.setView(view);
+        final EditText nominal = (EditText) view.findViewById(R.id.search_by_nominal);
+        ab.setCancelable(true)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(SearchActivity.this, "Nominal = " + nominal.getText(), Toast.LENGTH_SHORT).show();
+//todo _year cheack for Integer
+                        float _nominal = Float.parseFloat(nominal.getText().toString());
+                        Collection.coinList = loadCoinListByNominal(_nominal);
+
+                        //Open Collection Activity
+                        Intent intent = new Intent(SearchActivity.this, CollectionActivity.class);
+                        String name = "All Coins by " + _nominal + " in Nominal";
+                        intent.putExtra("COLLECTION_NAME", name);
+                        startActivity(intent);
+                    }
+                });
+        Dialog dialog = ab.create();
+        dialog.show();
+    }
+
+    private ArrayList<Coin> loadCoinListByYear(int year) {
         CoinDBHelper coindb = new CoinDBHelper(this);
         ArrayList<Coin> coinList = coindb.getCoinsArrayListFromCatalogByYear(year);
+        return coinList;
+
+    }
+
+    private ArrayList<Coin> loadCoinListByNominal(float nominal) {
+        CoinDBHelper coindb = new CoinDBHelper(this);
+        ArrayList<Coin> coinList = coindb.getCoinsArrayListFromCatalogByNominal(nominal);
         return coinList;
 
     }

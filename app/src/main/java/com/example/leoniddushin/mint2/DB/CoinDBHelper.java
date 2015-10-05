@@ -33,7 +33,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
     private static final String KEY_mint = "Mint";
     private static final String KEY_count = "Count";
     private static final String KEY_nominal = "Nominal";
-    private static final String KEY_quantity = "Quantity";
+    //    private static final String KEY_quantity = "Quantity";
     private static final String KEY_grade = "Grade";
     private static final String KEY_description = "Description";
     private static final String KEY_note = "Note";
@@ -134,7 +134,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
 
         int r = context.getResources().getIdentifier(collectionName, "raw", context.getPackageName());
 
-        InputStream inputStream = context.getResources().openRawResource(r);//R.raw.canada_cent1
+        InputStream inputStream = context.getResources().openRawResource(r);
 
         CSVFile csvFile = new CSVFile(inputStream);
 
@@ -142,7 +142,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
 
         for (int i = 0; i < collectionArrayList.size(); i++) {
             addCoinToCatalog(new Coin(collectionArrayList.get(i).getId(),
-                                      CollectionId,//collectionArrayList.get(i).getFK_collection(),
+                    CollectionId,
                                       collectionArrayList.get(i).getTitle(),
                                       collectionArrayList.get(i).getYear(),
                                       collectionArrayList.get(i).getMint(),
@@ -166,6 +166,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
     db.update(COIN_TBL, row, KEY_ID + " = ?", new String[] { String.valueOf(CoinId) } );
     db.close();
     }
+
     public void deleteDatabase() {
         context.deleteDatabase(COIN_TBL);
     }
@@ -177,9 +178,9 @@ public class CoinDBHelper extends SQLiteOpenHelper {
         return collectionArrayList;
     }
 
-    public ArrayList<Coin> getCoinsArrayListFromCatalogByNominal(int nominal) {
+    public ArrayList<Coin> getCoinsArrayListFromCatalogByNominal(float nominal) {
         Log.d("Get Coin from DB by Year ", String.valueOf(nominal));
-        String query = "SELECT * FROM " + COIN_TBL + " where " + KEY_quantity + "='" + nominal + "'";
+        String query = "SELECT * FROM " + COIN_TBL + " where " + KEY_nominal + "='" + nominal + "'";
         ArrayList<Coin> collectionArrayList = setCoinProperty(query);
         return collectionArrayList;
     }
