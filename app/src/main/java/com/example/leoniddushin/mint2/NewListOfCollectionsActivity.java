@@ -13,9 +13,11 @@ import android.widget.Toast;
 import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
 import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
+import com.example.leoniddushin.mint2.File.CSVFile;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.Objects.Collection;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class NewListOfCollectionsActivity extends ActionBarActivity {
@@ -63,7 +65,6 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//                if(collectionid.equals("NEW")) {
                 //add new collection
                 String collectionName = Collection.collectionList.get(position).getName();
                 int count = Collection.collectionList.get(position).getCount();
@@ -88,24 +89,41 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 //                    startActivity(intent);
             }
 //                else {
-//                    //loading Collections
-////                    int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
-////                    InputStream inputStream = getResources().openRawResource(i);
-////
-////                    CSVFile csvFile = new CSVFile(inputStream);
-////                    ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
-////                    Collection.setColectionfromCointList(coinList);
-/////
-//                    int i = Collection.collectionList.get(position).getId();
-//                    Collection.coinList = loadCoinList(i);
 //
-//                    //Open Collection Activity
-//                    Intent intent = new Intent(NewListOfCollectionsActivity.this, CollectionActivity.class);
-//                    String name = Collection.collectionList.get(position).getName();
-//                    intent.putExtra("COLLECTION_NAME", name);
-//                    startActivity(intent);
 //                }
 //            }
+        });
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            /**
+             * Callback method to be invoked when an item in this view has been
+             * clicked and held.
+             * <p/>
+             * Implementers can call getItemAtPosition(position) if they need to access
+             * the data associated with the selected item.
+             *
+             * @param parent   The AbsListView where the click happened
+             * @param view     The view within the AbsListView that was clicked
+             * @param position The position of the view in the list
+             * @param id       The row id of the item that was clicked
+             * @return true if the callback consumed the long click, false otherwise
+             */
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//            loading Collections
+                int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
+                InputStream inputStream = getResources().openRawResource(i);
+
+                CSVFile csvFile = new CSVFile(inputStream);
+                ArrayList<Coin> coinList = csvFile.getCoinsFromFile();
+                Collection.setColectionfromCointList(coinList);
+
+                //Open Collection Activity
+                Intent intent = new Intent(NewListOfCollectionsActivity.this, CollectionActivity.class);
+                String name = Collection.collectionList.get(position).getName();
+                intent.putExtra("COLLECTION_NAME", name);
+                startActivity(intent);
+                return true;
+            }
         });
     }
 
