@@ -22,13 +22,12 @@ import java.util.ArrayList;
 
 public class NewListOfCollectionsActivity extends ActionBarActivity {
 
-    private MySQLiteHelper db;
-    private CoinDBHelper coindb;
-//    private String collectionid;
-
     ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
+    //    private String collectionid;
     String countryName;
+    private MySQLiteHelper db;
+    private CoinDBHelper coindb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 
 //        if(collectionName.equals("NEW")) {
         //todo Load all collections from file
-        Collection.setCollections(db.getCollectionsByCountry(countryName));
+        Collection.setCollections(db.getNewCollectionsByCountry(countryName));
 //        }
 //        else if(collectionName.equals("MY_COLLECCTIONS")){
 //            //todo Load all collections from DB with belongins = 1
@@ -70,8 +69,9 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
                 int count = Collection.collectionList.get(position).getCount();
                 String country = Collection.collectionList.get(position).getCountry();
                 String icon = Collection.collectionList.get(position).getImg();
+                boolean lock = Collection.collectionList.get(position).getLock();
                 int newcollection = db.getNumberOfCollections() + 1;
-                db.addCollection(new Collection(newcollection, collectionName, count, country, 1, icon));
+                db.addCollection(new Collection(newcollection, collectionName, count, country, 1, icon, lock));
 
                 addCollectiontoDB(collectionName, newcollection);
                 //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());
@@ -120,7 +120,11 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
                 //Open Collection Activity
                 Intent intent = new Intent(NewListOfCollectionsActivity.this, CollectionActivity.class);
                 String name = Collection.collectionList.get(position).getName();
-                intent.putExtra("COLLECTION_NAME", name);
+                boolean lock = Collection.collectionList.get(position).getLock();
+                int collectionId = Collection.collectionList.get(position).getId();
+                intent.putExtra(CollectionActivity.COLLECTION_NAME, name);
+                intent.putExtra(CollectionActivity.LOCK,lock);
+                intent.putExtra(CollectionActivity.COLLECTION_ID,collectionId);
                 startActivity(intent);
                 return true;
             }

@@ -95,7 +95,6 @@ public class CollectionAdapter extends BaseAdapter {
         imageView.setImageResource(icon);
         title.setText(collections.get(position).getName());
         int howManyCoinsInCollection = collections.get(position).getCount();
-       // int howManyCoinsInColected =
         count.setText("0 / " + howManyCoinsInCollection);//todo add how many coins in collection from DB
 
         return listView;

@@ -23,7 +23,7 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
     private MySQLiteHelper db;
     private CoinDBHelper coindb;
 
-    ArrayList<Collection> collections = new ArrayList<Collection>();
+ //   ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
     String countryName;
 
@@ -44,18 +44,25 @@ public class ListOfCollectionsActivity extends ActionBarActivity {
         //todo Load all collections from DB with belongins = 1
         Collection.setCollections(db.getAllCollection());
 
+
         collectionsAdapter = new CollectionAdapter(this, Collection.collectionList);
         ListView listView = (ListView) findViewById(R.id.cl_listView);
         listView.setAdapter(collectionsAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 int i = Collection.collectionList.get(position).getId();
+                Collection.setCollectionLock(db.getCollectionLockById(i));
                 Collection.coinList = loadCoinList(i);
 
                 //Open Collection Activity
                 Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
                 String name = Collection.collectionList.get(position).getName();
-                intent.putExtra("COLLECTION_NAME", name);
+                boolean lock = Collection.collectionList.get(position).getLock();
+                int collectionId = Collection.collectionList.get(position).getId();
+                intent.putExtra(CollectionActivity.COLLECTION_NAME, name);
+                intent.putExtra(CollectionActivity.LOCK,lock);
+                intent.putExtra(CollectionActivity.COLLECTION_ID, collectionId);
                 startActivity(intent);
             }
         });

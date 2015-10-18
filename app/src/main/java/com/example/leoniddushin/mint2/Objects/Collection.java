@@ -12,16 +12,18 @@ public class Collection {
     private int count;
     private String country;
     private int belongings;
+    private static boolean lock;
     private String img;
 
     public Collection(){    }
-    public Collection(int id,String name, int count,String country,int belongings, String img) {
+    public Collection(int id,String name, int count,String country,int belongings, String img, boolean lock) {
         super();
         this.id = id;
         this.name = name;
         this.count = count;
         this.country = country;
         this.belongings = belongings;
+        this.lock = lock;
         this.img= img;
     }
 
@@ -48,6 +50,9 @@ public class Collection {
     public String getImg() {
         return img;
     }
+    public boolean getLock() {
+        return lock;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -67,13 +72,18 @@ public class Collection {
     public void setImg(String img) {
         this.img = img;
     }
+    public void setLock(boolean lock) {
+        this.lock = lock;
+    }
 
 //#########################################
     public static ArrayList<Collection> collectionList = new ArrayList<Collection>();
     public static void setCollections(ArrayList<Collection> collectionList){
         Collection.collectionList = collectionList;
     }
-
+    public static void setCollectionLock(boolean lock){
+        Collection.lock = lock;
+    }
 //###############################################################
     public static ArrayList<Coin> coinList = new ArrayList<Coin>();
     public static void setColectionfromCointList(ArrayList<Coin> coinListNew){

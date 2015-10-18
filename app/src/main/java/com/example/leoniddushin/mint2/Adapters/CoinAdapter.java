@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
+import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.R;
 
@@ -20,10 +21,10 @@ import java.util.ArrayList;
 public class CoinAdapter extends BaseAdapter {
     private ArrayList<Coin> coinList = new ArrayList<Coin>();
     private Context context;
-  //  private CoinDBHelper coinDBHelper = new CoinDBHelper(this.context) ;
+    //  private CoinDBHelper coinDBHelper = new CoinDBHelper(this.context) ;
 
-    public CoinAdapter(Context context,ArrayList<Coin> coinList) {
-        this.context =  context;
+    public CoinAdapter(Context context, ArrayList<Coin> coinList) {
+        this.context = context;
         this.coinList = coinList;
     }
 
@@ -100,7 +101,7 @@ public class CoinAdapter extends BaseAdapter {
             textView.setTextSize(10);
         }
         // set image based on selected text
-        int icon = context.getResources().getIdentifier(coinList.get(position).getImgA(),"drawable",context.getPackageName());
+        int icon = context.getResources().getIdentifier(coinList.get(position).getImgA(), "drawable", context.getPackageName());
         imageView.setImageResource(icon);
         if (coinList.get(position).getCount() == 0)
             imageView.setAlpha((float) 0.2);
@@ -109,47 +110,61 @@ public class CoinAdapter extends BaseAdapter {
 
         return gridView;
     }
-    public void change(int position){
+
+    public void change(int position) {
         int i = coinList.get(position).getCount();
         CoinDBHelper coinDBHelper = new CoinDBHelper(this.context);
 
-        if (i==0) {
+        if (i == 0) {
             coinList.get(position).setCount(1);
 
-            coinDBHelper.changeCoinState(coinList.get(position).getId(),1);
-        }
-
-        else {
+            coinDBHelper.changeCoinState(coinList.get(position).getId(), 1);
+        } else {
             coinList.get(position).setCount(0);
-            coinDBHelper.changeCoinState(coinList.get(position).getId(),0);
+            coinDBHelper.changeCoinState(coinList.get(position).getId(), 0);
 
         }
     }
-    public int getId(int position){
+    public void changeLock(int collection,boolean lock) {
+        MySQLiteHelper helper = new MySQLiteHelper(this.context);
+        helper.changeCollectionLock(collection,lock);
+    }
+
+    public int getId(int position) {
         return coinList.get(position).getId();
     }
-    public String getTitle(int position){
+
+    public String getTitle(int position) {
         return coinList.get(position).getTitle();
     }
+
     public String getYear(int position) {
-         return coinList.get(position).getYear();
-     }
-    public String getMint(int position){
-         return coinList.get(position).getMint();
-     }
-    public String getGrade(int position){
+        return coinList.get(position).getYear();
+    }
+
+    public String getMint(int position) {
+        return coinList.get(position).getMint();
+    }
+
+    public String getGrade(int position) {
         return coinList.get(position).getGrade();
     }
-    public String getImgA(int position){return coinList.get(position).getImgA();}
-    public String getImgB(int position){return coinList.get(position).getImgB();}
 
-    public String getDescription(int position){
+    public String getImgA(int position) {
+        return coinList.get(position).getImgA();
+    }
+
+    public String getImgB(int position) {
+        return coinList.get(position).getImgB();
+    }
+
+    public String getDescription(int position) {
         return coinList.get(position).getDescription();
     }
-    public String getNote(int position){
+
+    public String getNote(int position) {
         return coinList.get(position).getNote();
     }
-
 
 
 // TODO set this up insted tha is above

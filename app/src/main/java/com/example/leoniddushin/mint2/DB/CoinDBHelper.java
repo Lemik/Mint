@@ -57,7 +57,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db) {
         if (db.getVersion() != VERSION)
-             db.execSQL(CREATE_COIN_TABLE);
+            db.execSQL(CREATE_COIN_TABLE);
     }
 
     @Override
@@ -71,7 +71,9 @@ public class CoinDBHelper extends SQLiteOpenHelper {
     public void addCoinToCatalog(Coin coin) {
         Log.d("Add Coin", coin.toString());
         SQLiteDatabase db = this.getWritableDatabase();
-        if (db == null) {return; }
+        if (db == null) {
+            return;
+        }
         ContentValues values = new ContentValues();
         values.put(KEY_FK_collection, coin.getFK_collection());
         values.put(KEY_title, coin.getTitle());
@@ -118,53 +120,49 @@ public class CoinDBHelper extends SQLiteOpenHelper {
         return coins;
     }
 
-
     public ArrayList<Coin> getCoinsArrayListFromCatalogByCollectionID(int ID) {
         Log.d("Get Coin from DB by ID", String.valueOf(ID));
         String query = "SELECT * FROM " + COIN_TBL + " where " + KEY_FK_collection + "='" + ID + "'";
         ArrayList<Coin> collectionArrayList = setCoinProperty(query);
-        return  collectionArrayList;
+        return collectionArrayList;
     }
-    public void addNewCollectionToDB(String collectionName, int CollectionId){
-    addCollectionToDB(collectionName,CollectionId);
-}
-    public void addCollectionToDB(String collectionName,int CollectionId){
 
+    public void addNewCollectionToDB(String collectionName, int CollectionId) {
+        addCollectionToDB(collectionName, CollectionId);
+    }
+
+    public void addCollectionToDB(String collectionName, int CollectionId) {
         ArrayList<Coin> collectionArrayList;
-
         int r = context.getResources().getIdentifier(collectionName, "raw", context.getPackageName());
-
         InputStream inputStream = context.getResources().openRawResource(r);
-
         CSVFile csvFile = new CSVFile(inputStream);
-
         collectionArrayList = csvFile.getCoinsFromFile();
-
         for (int i = 0; i < collectionArrayList.size(); i++) {
             addCoinToCatalog(new Coin(collectionArrayList.get(i).getId(),
                     CollectionId,
-                                      collectionArrayList.get(i).getTitle(),
-                                      collectionArrayList.get(i).getYear(),
-                                      collectionArrayList.get(i).getMint(),
-                                      collectionArrayList.get(i).getCount(),
-                                      collectionArrayList.get(i).getNominal(),
-                                      collectionArrayList.get(i).getGrade(),
-                                      collectionArrayList.get(i).getDescription(),
-                                      collectionArrayList.get(i).getNote(),
-                                      collectionArrayList.get(i).getImgA(),
-                                      collectionArrayList.get(i).getImgB()));
+                    collectionArrayList.get(i).getTitle(),
+                    collectionArrayList.get(i).getYear(),
+                    collectionArrayList.get(i).getMint(),
+                    collectionArrayList.get(i).getCount(),
+                    collectionArrayList.get(i).getNominal(),
+                    collectionArrayList.get(i).getGrade(),
+                    collectionArrayList.get(i).getDescription(),
+                    collectionArrayList.get(i).getNote(),
+                    collectionArrayList.get(i).getImgA(),
+                    collectionArrayList.get(i).getImgB()));
         }
     }
-    public void changeCoinState(int CoinId, int count){
-    Log.d("change Coin State by coin ID  = ", String.valueOf(CoinId));
-    SQLiteDatabase db = this.getWritableDatabase();
-    if (db == null) {
-        return;
-    }
-    ContentValues row = new ContentValues();
-    row.put(KEY_count,count);
-    db.update(COIN_TBL, row, KEY_ID + " = ?", new String[] { String.valueOf(CoinId) } );
-    db.close();
+
+    public void changeCoinState(int CoinId, int count) {
+        Log.d("change Coin State by coin ID  = ", String.valueOf(CoinId));
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (db == null) {
+            return;
+        }
+        ContentValues row = new ContentValues();
+        row.put(KEY_count, count);
+        db.update(COIN_TBL, row, KEY_ID + " = ?", new String[]{String.valueOf(CoinId)});
+        db.close();
     }
 
     public void deleteDatabase() {
@@ -184,6 +182,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
         ArrayList<Coin> collectionArrayList = setCoinProperty(query);
         return collectionArrayList;
     }
+
 }
 
 
