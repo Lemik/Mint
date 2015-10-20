@@ -4,33 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CoinAdapter;
 import com.example.leoniddushin.mint2.Objects.Collection;
 
-import java.util.Collections;
-
-
 public class CollectionActivity  extends ActionBarActivity {
 
-    protected static final String EXTRA_RES_ID = "POSITION";
     protected static final String COLLECTION_NAME = "COLLECTION_NAME";
     protected static final String COLLECTION_ID= "COLLECTION_ID";
     protected static final String LOCK = "LOCK";
 
     GridView gridView;
     CoinAdapter adapter;
-   // CollectionAdapter collectionAdapter;
     boolean loсk = true; // true -close false -open
     int collection_id;
-    private Context context;
-   // private CoinDBHelper coinDBHelper = new CoinDBHelper(context) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +41,8 @@ public class CollectionActivity  extends ActionBarActivity {
         //set title
         String title = bundle.getString(COLLECTION_NAME);
         loсk = bundle.getBoolean(LOCK);
-        Integer t =                  bundle.getInt(COLLECTION_ID);
+        collection_id =                  bundle.getInt(COLLECTION_ID);
         setTitle(intent.getStringExtra(title));//todo move to parametrs
-        collection_id = t;
-
-
 
         //todo Add logic to accept collection from main screen
         adapter = new CoinAdapter(this, Collection.coinList);
@@ -62,8 +56,20 @@ public class CollectionActivity  extends ActionBarActivity {
                     adapter.notifyDataSetChanged();
                 }
                 else{
-                    //TODO add Image
-                    Toast.makeText(CollectionActivity.this, "Please unlock Editing", Toast.LENGTH_SHORT).show();
+                    View toastView = getLayoutInflater().inflate(R.layout.image_text_toast,
+                            (ViewGroup)findViewById(R.id.toastLayout));
+                    ImageView imageView = (ImageView)toastView.findViewById(R.id.image);
+                    imageView.setImageResource(R.drawable.ic_action_lock_c);
+                    TextView textView = (TextView)toastView.findViewById(R.id.text);
+
+                    textView.setText("Please unlock Editing");
+
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setView(toastView);
+                    toast.show();
+                   // Toast.makeText(CollectionActivity.this, "Please unlock Editing", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -104,8 +110,6 @@ public class CollectionActivity  extends ActionBarActivity {
 
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main2, menu);
-       // menu.findItem(R.id.menu_refresh).setIcon()
-        //MenuItem item =  (MenuItem) findViewById(R.id.menu_refresh);
         if (loсk) {
             menu.findItem(R.id.menu_refresh).setIcon(R.drawable.ic_action_lock_o);
         } else {
