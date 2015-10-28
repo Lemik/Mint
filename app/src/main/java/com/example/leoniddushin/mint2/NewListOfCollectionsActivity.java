@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
-import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
+import com.example.leoniddushin.mint2.DB.CollectionDBHelper;
 import com.example.leoniddushin.mint2.File.CSVFile;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.Objects.Collection;
@@ -26,7 +26,7 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
     CollectionAdapter collectionsAdapter;
     //    private String collectionid;
     String countryName;
-    private MySQLiteHelper db;
+    private CollectionDBHelper db;
     private CoinDBHelper coindb;
 
     @Override
@@ -36,7 +36,7 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
         // Create a new DatabaseHelper
 
         coindb = new CoinDBHelper(this);
-        db = new MySQLiteHelper(this);
+        db = new CollectionDBHelper(this);
 
 //get parameter
         Intent intent = getIntent();
@@ -83,7 +83,7 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 //                    Collection.setColectionfromCointList(coinList);
 
 //                    //Open Collection Activity
-//                    Intent intent = new Intent(ListOfCollectionsActivity.this, CollectionActivity.class);
+//                    Intent intent = new Intent(MyCollectionsActivity.this, CollectionActivity.class);
 //                    String name = Collection.collectionList.get(position).getName();
 //                    intent.putExtra("COLLECTION_NAME", name);
 //                    startActivity(intent);

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
-import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
+import com.example.leoniddushin.mint2.DB.CollectionDBHelper;
 import com.example.leoniddushin.mint2.Objects.Coin;
 import com.example.leoniddushin.mint2.R;
 
@@ -126,7 +126,7 @@ public class CoinAdapter extends BaseAdapter {
         }
     }
     public void changeLock(int collection,boolean lock) {
-        MySQLiteHelper helper = new MySQLiteHelper(this.context);
+        CollectionDBHelper helper = new CollectionDBHelper(this.context);
         helper.changeCollectionLock(collection,lock);
     }
 

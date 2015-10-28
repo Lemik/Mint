@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.DB.CoinDBHelper;
-import com.example.leoniddushin.mint2.DB.MySQLiteHelper;
+import com.example.leoniddushin.mint2.DB.CollectionDBHelper;
 
 public class StartActivity extends Activity {
 
@@ -24,13 +24,8 @@ public class StartActivity extends Activity {
         myCollection.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //todo добавить возможность выбирать в настройках что бы показывать все мои коллекции организавав их по страннам
-                // Show Toast message
                 Toast.makeText(StartActivity.this, "Loading collections", Toast.LENGTH_SHORT).show();
-                //Create an Intent to start the ListOfCollectionsActivity
-                Intent intent = new Intent(StartActivity.this, ListOfCollectionsActivity.class);
-                // Add the ID of the thumbnail to display as an Intent Extra
-                //intent.putExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID, "MY_COLLECCTIONS");
-                // Start the ImageViewActivity
+                Intent intent = new Intent(StartActivity.this, MyCollectionsActivity.class);
                 startActivity(intent);
             }
 
@@ -54,11 +49,10 @@ public class StartActivity extends Activity {
             }
         });
     }
-
     private void deleteAllInDb() {
         CoinDBHelper coindb = new CoinDBHelper(this);
         coindb.deleteDatabase();
-        MySQLiteHelper db = new MySQLiteHelper(this);
+        CollectionDBHelper db = new CollectionDBHelper(this);
         db.deleteDatabase();
     }
     // BEGIN_INCLUDE(create_menu)
@@ -106,15 +100,8 @@ public class StartActivity extends Activity {
 
             case R.id.menu_settings:
                 Toast.makeText(StartActivity.this, "Settings", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(StartActivity.this, SettingsActivity.class);
                 startActivity(intent);
-
-                // not working (((
-                //Create an Intent to start the ImageViewActivity
-                // Intent intent = new Intent(MainActivity.this, CollectionActivity.class);
-                // startActivity(intent);
-
                 return true;
         }
 

@@ -75,6 +75,7 @@ public class CoinDBHelper extends SQLiteOpenHelper {
             return;
         }
         ContentValues values = new ContentValues();
+ //       values.put(KEY_ID, coin.getId());
         values.put(KEY_FK_collection, coin.getFK_collection());
         values.put(KEY_title, coin.getTitle());
         values.put(KEY_year, coin.getYear());
@@ -138,7 +139,8 @@ public class CoinDBHelper extends SQLiteOpenHelper {
         CSVFile csvFile = new CSVFile(inputStream);
         collectionArrayList = csvFile.getCoinsFromFile();
         for (int i = 0; i < collectionArrayList.size(); i++) {
-            addCoinToCatalog(new Coin(collectionArrayList.get(i).getId(),
+            addCoinToCatalog(new Coin(
+                    CollectionId,//todo need to change as we dont have Id in file
                     CollectionId,
                     collectionArrayList.get(i).getTitle(),
                     collectionArrayList.get(i).getYear(),
@@ -167,6 +169,11 @@ public class CoinDBHelper extends SQLiteOpenHelper {
 
     public void deleteDatabase() {
         context.deleteDatabase(COIN_TBL);
+    }
+
+    public boolean deleteCoinsByCollectionID(int collectionid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(COIN_TBL, KEY_FK_collection + "=" + collectionid, null) > 0;
     }
 
     public ArrayList<Coin> getCoinsArrayListFromCatalogByYear(int year) {

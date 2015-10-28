@@ -32,7 +32,7 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".ListOfCollectionsActivity"
+            android:name=".MyCollectionsActivity"
             android:label="@string/title_activity_list_of_collections" />
         <activity
             android:name=".NewListOfCollectionsActivity"

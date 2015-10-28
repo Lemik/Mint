@@ -33,7 +33,7 @@ public class CountriesListActivity extends ActionBarActivity {
                 // Show Toast message
                 Toast.makeText(CountriesListActivity.this, "Open all Country available collections", Toast.LENGTH_SHORT).show();
 
-                //Create an Intent to start the ListOfCollectionsActivity
+                //Create an Intent to start the MyCollectionsActivity
                 Intent intent = new Intent(CountriesListActivity.this, NewListOfCollectionsActivity.class);
 
                 // Add the ID of the thumbnail to display as an Intent Extra

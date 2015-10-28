@@ -1,6 +1,5 @@
 package com.example.leoniddushin.mint2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -39,10 +38,9 @@ public class CollectionActivity  extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = getIntent().getExtras();
         //set title
-        String title = bundle.getString(COLLECTION_NAME);
         loсk = bundle.getBoolean(LOCK);
         collection_id =                  bundle.getInt(COLLECTION_ID);
-        setTitle(intent.getStringExtra(title));//todo move to parametrs
+        setTitle(bundle.getString(COLLECTION_NAME));//todo move to parametrs
 
         //todo Add logic to accept collection from main screen
         adapter = new CoinAdapter(this, Collection.coinList);
@@ -69,7 +67,6 @@ public class CollectionActivity  extends ActionBarActivity {
                     toast.setDuration(Toast.LENGTH_SHORT);
                     toast.setView(toastView);
                     toast.show();
-                   // Toast.makeText(CollectionActivity.this, "Please unlock Editing", Toast.LENGTH_SHORT).show();
                 }
             }
         });

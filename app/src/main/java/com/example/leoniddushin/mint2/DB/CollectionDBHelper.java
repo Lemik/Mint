@@ -15,11 +15,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class MySQLiteHelper extends SQLiteOpenHelper{
+public class CollectionDBHelper extends SQLiteOpenHelper{
     final private static Integer VERSION = 1;
     final private Context context;
+    private SQLiteDatabase _db = null;
 
-    public MySQLiteHelper(Context context) {
+    public CollectionDBHelper(Context context) {
         super(context, COLLECTION_TBL, null, VERSION);
         this.context = context;
     }
@@ -54,6 +55,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         if (db.getVersion() != VERSION)
             db.execSQL(CREATE_COLLECTION_TABLE);
+        _db = db;
     }
 
     @Override
@@ -87,19 +89,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public ArrayList<Collection> getAllCollection() {
         String query = "SELECT * FROM " + COLLECTION_TBL +" WHERE "+KEY_Belongs+"=1";
         return setCollectionProperty(query);
-    }
-
-    public boolean getCollectionLockById(int collectionid) {
-        String query = "SELECT " + KEY_LOCK + " FROM " + COLLECTION_TBL + " WHERE " + KEY_ID_COLLECTION + "=" + collectionid;
-        boolean lock = false;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            do {
-                lock = (cursor.getInt(0) != 0);
-            } while (cursor.moveToNext());
-        }
-        return lock;
     }
 
     public ArrayList<Collection> getNewCollectionsByCountry(String countryName){
@@ -171,19 +160,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
         boolean l= getCollectionLockById(CollectionId);
     }
-//    public ArrayList<String> getListOfCountries(){
-//        String query = "SELECT distinct " + KEY_Country + " FROM " + COLLECTION_TBL;
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery(query, null);
-//        ArrayList<String> country= new ArrayList<String>();
-//        if (cursor.moveToFirst()) {
-//            do {
-//                String str = cursor.getString(0);
-//                country.add(str);
-//            } while (cursor.moveToNext());
-//        }
-//        return country ;
-//    }
+
+    public boolean getCollectionLockById(int collectionid) {
+        String query = "SELECT " + KEY_LOCK + " FROM " + COLLECTION_TBL + " WHERE " + KEY_ID_COLLECTION + "=" + collectionid;
+        boolean lock = false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                lock = (cursor.getInt(0) != 0);
+            } while (cursor.moveToNext());
+        }
+        return lock;
+    }
 
     public int getNumberOfCollections(){
         String query = "SELECT * FROM " + COLLECTION_TBL;
@@ -191,9 +180,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(query, null);
         return cursor.getCount();
     }
-
+//Delete
     public void deleteDatabase() {
         context.deleteDatabase(COLLECTION_TBL);
+    }
+
+    public boolean deleteCollectionByID(int collectionid) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(COLLECTION_TBL, KEY_ID_COLLECTION + "=" + collectionid, null) > 0;
     }
 
 }
