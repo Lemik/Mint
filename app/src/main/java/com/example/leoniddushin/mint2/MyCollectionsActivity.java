@@ -94,10 +94,10 @@ public class MyCollectionsActivity extends ActionBarActivity {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {//todo add error handling if something went wrong
-                        if(dbCollection.deleteCollectionByID(Collection.collectionList.get(position).getId()))
-                            Toast.makeText(MyCollectionsActivity.this, "Collection deleted", Toast.LENGTH_LONG).show();
-                        if(dbCoin.deleteCoinsByCollectionID(Collection.collectionList.get(position).getId()))
-                            Toast.makeText(MyCollectionsActivity.this, "Coins deleted", Toast.LENGTH_LONG).show();
+                        if(dbCollection.deleteCollectionByID(Collection.collectionList.get(position).getId()) &&
+                                 dbCoin.deleteCoinsByCollectionID(Collection.collectionList.get(position).getId()))
+                            Toast.makeText(MyCollectionsActivity.this, "Collection deleted", Toast.LENGTH_SHORT).show();
+//todo remove this lite and test how it's look like
                         dialog.cancel();
                         restartActivity();
                     }
@@ -127,11 +127,10 @@ public class MyCollectionsActivity extends ActionBarActivity {
     }
     private ArrayList<Coin> loadCoinList(int id) {
         dbCoin = new CoinDBHelper(this);
-        ArrayList<Coin> coinList = dbCoin.getCoinsArrayListFromCatalogByCollectionID(id);
-        return coinList;
+        return dbCoin.getCoinsArrayListFromCatalogByCollectionID(id);
     }
 
-    //MENU
+////////////////////MENU
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -35,7 +35,7 @@ public class CollectionActivity  extends ActionBarActivity {
         setContentView(R.layout.activity_collection_view);
 
         // Get the Intent used to start this Activity
-        Intent intent = getIntent();
+        Intent intent = getIntent(); //todo looks like we can remove it
         Bundle bundle = getIntent().getExtras();
         //set title
         loсk = bundle.getBoolean(LOCK);

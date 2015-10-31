@@ -144,23 +144,18 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
                 +KEY_COUNT+"="+countryName;
         return setCollectionProperty(query);
     }
-
     public void changeCollectionLock(int CollectionId, boolean lock){
         Log.d("change collection Lock by coin ID  = ", String.valueOf(CollectionId));
         SQLiteDatabase db = this.getWritableDatabase();
         if (db == null) {return;}
-        ContentValues row = new ContentValues();
-
+            ContentValues row = new ContentValues();
         int lockI;
         if(lock) lockI=1; else lockI=0;
         row.put(KEY_LOCK, lockI);
-
         db.update(COLLECTION_TBL, row, KEY_ID_COLLECTION + " = ?", new String[] { String.valueOf(CollectionId) } );
         db.close();
-
         boolean l= getCollectionLockById(CollectionId);
     }
-
     public boolean getCollectionLockById(int collectionid) {
         String query = "SELECT " + KEY_LOCK + " FROM " + COLLECTION_TBL + " WHERE " + KEY_ID_COLLECTION + "=" + collectionid;
         boolean lock = false;
@@ -173,7 +168,6 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         }
         return lock;
     }
-
     public int getNumberOfCollections(){
         String query = "SELECT * FROM " + COLLECTION_TBL;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -184,7 +178,6 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
     public void deleteDatabase() {
         context.deleteDatabase(COLLECTION_TBL);
     }
-
     public boolean deleteCollectionByID(int collectionid) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(COLLECTION_TBL, KEY_ID_COLLECTION + "=" + collectionid, null) > 0;
