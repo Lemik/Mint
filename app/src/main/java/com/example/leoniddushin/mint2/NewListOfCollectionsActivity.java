@@ -40,18 +40,10 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
 
 //get parameter
         Intent intent = getIntent();
-        // String collectionName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
-        //  collectionid =          intent.getStringExtra(CountriesListActivity.EXTRA_RES_COLLECTION_ID);
         countryName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID);
 
-//        if(collectionName.equals("NEW")) {
         //todo Load all collections from file
         Collection.setCollections(db.getNewCollectionsByCountry(countryName));
-//        }
-//        else if(collectionName.equals("MY_COLLECCTIONS")){
-//            //todo Load all collections from DB with belongins = 1
-//            Collection.setCollections(db.getAllCollection());
-//        }
 
         if (db.getNumberOfCollections() == 0) {
             // Show Toast message
@@ -65,13 +57,14 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //add new collection
+                int newcollection = db.getNumberOfCollections() + 1;
+                String title = Collection.collectionList.get(position).getTitle();
                 String collectionName = Collection.collectionList.get(position).getName();
                 int count = Collection.collectionList.get(position).getCount();
                 String country = Collection.collectionList.get(position).getCountry();
                 String icon = Collection.collectionList.get(position).getImg();
                 boolean lock = Collection.collectionList.get(position).getLock();
-                int newcollection = db.getNumberOfCollections() + 1;
-                db.addCollection(new Collection(newcollection, collectionName, count, country, 1, icon, lock));
+                db.addCollection(new Collection(newcollection,title, collectionName, count, country, 1, icon, lock));
 
                 addCollectiontoDB(collectionName, newcollection);
                 //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());

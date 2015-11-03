@@ -61,11 +61,12 @@ public class CSVFile {
                 String[] row = csvLine.split("\\|");
                 Collection cl = new Collection();
                 cl.setId(Integer.parseInt(row[0].trim()));
-                cl.setName(row[1].trim());
-                cl.setCount(Integer.parseInt(row[2].trim()));
-                cl.setCountry(row[3].trim());
-                cl.setBelongings(Integer.parseInt(row[4].trim()));
-                cl.setLock(false);
+                cl.setTitle(row[1].trim());
+                cl.setName(row[2].trim());
+                cl.setCount(Integer.parseInt(row[3].trim()));
+                cl.setCountry(row[4].trim());
+                cl.setBelongings(0);//it set to 0 as we import from file only new collections
+                cl.setLock(false);// todo move it to settings as default LoOK settings
                 cl.setImg(row[5].trim());
                 collectionList.add(cl);
             }

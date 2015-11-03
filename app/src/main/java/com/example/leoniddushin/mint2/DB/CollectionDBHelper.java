@@ -28,6 +28,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
     static final String COLLECTION_TBL = "Collections";
     static final String KEY_ID_COLLECTION = "_ID_COLLECTION";
     static final String KEY_COLLECTION_NAME = "CollectionName";
+    static final String KEY_COLLECTION_TITLE = "Title";
     static final String KEY_COUNT = "Count";
     static final String KEY_Country = "Country";
     static final String KEY_Belongs = "Belongs";
@@ -39,6 +40,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
     final private static String CREATE_COLLECTION_TABLE =
             "CREATE TABLE " + COLLECTION_TBL + " ( "
                     + KEY_ID_COLLECTION + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + KEY_COLLECTION_TITLE + " TEXT, "
                     + KEY_COLLECTION_NAME + " TEXT, "
                     + KEY_COUNT + " INTEGER, "
                     + KEY_Country + " TEXT, "
@@ -72,6 +74,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         // 2. create ContentValues to add key "column"/value
         ContentValues values = new ContentValues();
+        values.put(KEY_COLLECTION_TITLE, collection.getTitle());
         values.put(KEY_COLLECTION_NAME, collection.getName());
         values.put(KEY_COUNT, collection.getCount());
         values.put(KEY_Country, collection.getCountry());
@@ -104,6 +107,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
 
             for(int i=0; i<collectionArrayList.size(); i++){
                 addCollection(new Collection(collectionArrayList.get(i).getId(),
+                                             collectionArrayList.get(i).getTitle(),
                                              collectionArrayList.get(i).getName(),
                                              collectionArrayList.get(i).getCount(),
                                              collectionArrayList.get(i).getCountry(),
@@ -127,11 +131,12 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
                 collection = new Collection(
                            Integer.parseInt(cursor.getString(0)),
                                             cursor.getString(1),
-                           Integer.parseInt(cursor.getString(2)),
-                                            cursor.getString(3),
-                           Integer.parseInt(cursor.getString(4)),
-                                            cursor.getString(5),
-                       Boolean.parseBoolean(cursor.getString(6))
+                                            cursor.getString(2),
+                           Integer.parseInt(cursor.getString(3)),
+                                            cursor.getString(4),
+                           Integer.parseInt(cursor.getString(5)),
+                                            cursor.getString(6),
+                       Boolean.parseBoolean(cursor.getString(7))
                                             );
                 collections.add(collection);
             } while (cursor.moveToNext());

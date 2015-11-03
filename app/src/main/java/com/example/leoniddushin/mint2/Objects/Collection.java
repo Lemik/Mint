@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Collection {
 
     private int id;
+    private String title;
     private String name;
     private int count;
     private String country;
@@ -16,9 +17,10 @@ public class Collection {
     private String img;
 
     public Collection(){    }
-    public Collection(int id,String name, int count,String country,int belongings, String img, boolean lock) {
+    public Collection(int id,String title,String name, int count,String country,int belongings, String img, boolean lock) {
         super();
         this.id = id;
+        this.title =title;
         this.name = name;
         this.count = count;
         this.country = country;
@@ -34,6 +36,9 @@ public class Collection {
 
     public int getId() {
         return id;
+    }
+    public String getTitle() {
+        return title;
     }
     public String getName() {
         return name;
@@ -56,6 +61,9 @@ public class Collection {
 
     public void setId(int id) {
         this.id = id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
     }
     public void setName(String name) {
         this.name = name;
