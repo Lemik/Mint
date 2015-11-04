@@ -93,7 +93,7 @@ public class CollectionAdapter extends BaseAdapter {
 
         int icon = context.getResources().getIdentifier(collections.get(position).getImg(),"drawable",context.getPackageName());
         imageView.setImageResource(icon);
-        title.setText(collections.get(position).getName());
+        title.setText(collections.get(position).getTitle());
         int howManyCoinsInCollection = collections.get(position).getCount();
         count.setText("0 / " + howManyCoinsInCollection);//todo add how many coins in collection from DB
 

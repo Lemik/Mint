@@ -59,7 +59,7 @@ public class MyCollectionsActivity extends ActionBarActivity {
 
                 //Open Collection Activity
                 Intent intent = new Intent(MyCollectionsActivity.this, CollectionActivity.class);
-                String name = Collection.collectionList.get(position).getName();
+                String name = Collection.collectionList.get(position).getTitle();
                 boolean lock = Collection.collectionList.get(position).getLock();
                 int collectionId = Collection.collectionList.get(position).getId();
                 intent.putExtra(CollectionActivity.COLLECTION_NAME, name);
