@@ -74,7 +74,7 @@ public class MyCollectionsActivity extends ActionBarActivity {
   // Я сделал position final !!!!
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                String name = Collection.collectionList.get(position).getName();
+                String name = Collection.collectionList.get(position).getTitle();
                 // custom dialog
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.dialog_collection);

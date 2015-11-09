@@ -1,6 +1,12 @@
-1|canada_cent|100|Canada|0|ic_c1
-2|usa_cent|100|USA|0|usa_cent_2009
-3|state_quarters_test2|112|USA|0|usa_s_25
-4|canada_25cent|147|Canada|0|canada_25cent_a
-5|canada_25cent_olympic_2010|17|Canada|0|canadian_25_olimpic2010_lucky_loonie_2010
-6|canada_001|100|Canada|0|ic_c1
+1|Canada Olympic Games 2010|canada_olympic_2010|20|Canada|canadian_25_olimpic2010_lucky_loonie_2010
+2|The War of 1812|the_war_of_1812|9|Canada|canada_2_2012_war_1812_bicentennial
+3|Canada 1 cent |canada_001|299|Canada|ic_c1
+4|Canada 5 cent|canada_005|162|Canada|canada_5c_2015
+5|Canada 10 cent|canada_010|158|Canada|canada_10c_2015
+6|Canada 20 cent|canada_020|1|Canada|canada_20c_2015
+7|Canada 25 cent|canada_025|146|Canada|canada_25cent_a
+8|Canada 50 cent|canada_050|146|Canada|canada_50c_2015
+9|Loonies|canada_1|81|Canada|canada_1d_2012_locky_loonie
+11|Toonies|canada_2|20|Canada|canada_2d_1952_2002
+13|USA 1 cent|usa_cent|100|USA|usa_cent_2009
+14|USA 25 cent|state_quarters_test2|100|USA|usa_s_25
