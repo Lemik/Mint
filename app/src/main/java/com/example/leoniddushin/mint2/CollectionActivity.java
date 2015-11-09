@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.leoniddushin.mint2.Adapters.CoinAdapter;
+import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
 import com.example.leoniddushin.mint2.Objects.Collection;
 
 public class CollectionActivity  extends ActionBarActivity {
@@ -25,6 +26,7 @@ public class CollectionActivity  extends ActionBarActivity {
 
     GridView gridView;
     CoinAdapter adapter;
+    CollectionAdapter collectionAdapter;
     boolean loсk = true; // true -close false -open
     int collection_id;
 
@@ -49,9 +51,9 @@ public class CollectionActivity  extends ActionBarActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 if(loсk){
-                    Toast.makeText(CollectionActivity.this, "Update", Toast.LENGTH_SHORT).show();
-                    adapter.change(position);
+                    adapter.change(position,collection_id);
                     adapter.notifyDataSetChanged();
+                    Toast.makeText(CollectionActivity.this, "Update", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     View toastView = getLayoutInflater().inflate(R.layout.image_text_toast,

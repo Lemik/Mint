@@ -30,6 +30,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
     static final String KEY_COLLECTION_NAME = "CollectionName";
     static final String KEY_COLLECTION_TITLE = "Title";
     static final String KEY_COUNT = "Count";
+    static final String KEY_COLLECTED = "Collected";
     static final String KEY_Country = "Country";
     static final String KEY_Belongs = "Belongs";
     static final String KEY_IMG ="img";
@@ -43,6 +44,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
                     + KEY_COLLECTION_TITLE + " TEXT, "
                     + KEY_COLLECTION_NAME + " TEXT, "
                     + KEY_COUNT + " INTEGER, "
+                    + KEY_COLLECTED + " INTEGER, "
                     + KEY_Country + " TEXT, "
                     + KEY_Belongs + " INTEGER DEFAULT 0, "
                     + KEY_IMG + " TEXT, "
@@ -77,6 +79,7 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         values.put(KEY_COLLECTION_TITLE, collection.getTitle());
         values.put(KEY_COLLECTION_NAME, collection.getName());
         values.put(KEY_COUNT, collection.getCount());
+        values.put(KEY_COLLECTED, collection.getCollected());
         values.put(KEY_Country, collection.getCountry());
         values.put(KEY_Belongs, collection.getBelongings());
         values.put(KEY_IMG,collection.getImg());
@@ -88,12 +91,10 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         // 4. close
         db.close();
     }
-
     public ArrayList<Collection> getAllCollection() {
         String query = "SELECT * FROM " + COLLECTION_TBL +" WHERE "+KEY_Belongs+"=1";
         return setCollectionProperty(query);
     }
-
     public ArrayList<Collection> getNewCollectionsByCountry(String countryName){
         String query = "SELECT * FROM " + COLLECTION_TBL + " where " + KEY_Country + " = '"+countryName+"'" +
                 " AND " + KEY_Belongs+" =0 ";
@@ -102,14 +103,13 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         if(collectionArrayList.size()==0) {
             InputStream inputStream = context.getResources().openRawResource(R.raw.collections);
             CSVFile csvFile = new CSVFile(inputStream);
-
             collectionArrayList = csvFile.getCollectionsFromFile();
-
             for(int i=0; i<collectionArrayList.size(); i++){
                 addCollection(new Collection(collectionArrayList.get(i).getId(),
                                              collectionArrayList.get(i).getTitle(),
                                              collectionArrayList.get(i).getName(),
                                              collectionArrayList.get(i).getCount(),
+                                             collectionArrayList.get(i).getCollected(),
                                              collectionArrayList.get(i).getCountry(),
                                              collectionArrayList.get(i).getBelongings(),
                                              collectionArrayList.get(i).getImg(),
@@ -133,10 +133,11 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
                                             cursor.getString(1),
                                             cursor.getString(2),
                            Integer.parseInt(cursor.getString(3)),
-                                            cursor.getString(4),
-                           Integer.parseInt(cursor.getString(5)),
-                                            cursor.getString(6),
-                       Boolean.parseBoolean(cursor.getString(7))
+                           Integer.parseInt(cursor.getString(4)),
+                                            cursor.getString(5),
+                           Integer.parseInt(cursor.getString(6)),
+                                            cursor.getString(7),
+                       Boolean.parseBoolean(cursor.getString(8))
                                             );
                 collections.add(collection);
             } while (cursor.moveToNext());
@@ -159,7 +160,30 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         row.put(KEY_LOCK, lockI);
         db.update(COLLECTION_TBL, row, KEY_ID_COLLECTION + " = ?", new String[] { String.valueOf(CollectionId) } );
         db.close();
-        boolean l= getCollectionLockById(CollectionId);
+    }
+
+    public void changeCollectedCount(int CollectionId, int changes){
+        Log.d("change how many coins ase collected by collection ID  = ", String.valueOf(CollectionId));
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (db == null) {return;}
+        ContentValues row = new ContentValues();
+        int howManyCoinsIhaveNow= getCollectedfromDB(CollectionId);
+        row.put(KEY_COLLECTED, howManyCoinsIhaveNow + changes);
+        db.update(COLLECTION_TBL, row, KEY_ID_COLLECTION + " = ?", new String[] { String.valueOf(CollectionId) } );
+        db.close();
+        int test= getCollectedfromDB(CollectionId);//todo remove
+    }
+    public int getCollectedfromDB(int collectionid) {
+        String query = "SELECT " + KEY_COLLECTED + " FROM " + COLLECTION_TBL + " WHERE " + KEY_ID_COLLECTION + "=" + collectionid;
+        int collected = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                collected = cursor.getInt(0);
+            } while (cursor.moveToNext());
+        }
+        return collected;
     }
     public boolean getCollectionLockById(int collectionid) {
         String query = "SELECT " + KEY_LOCK + " FROM " + COLLECTION_TBL + " WHERE " + KEY_ID_COLLECTION + "=" + collectionid;

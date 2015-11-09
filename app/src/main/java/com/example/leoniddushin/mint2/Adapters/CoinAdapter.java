@@ -111,23 +111,28 @@ public class CoinAdapter extends BaseAdapter {
         return gridView;
     }
 
-    public void change(int position) {
+    public void change(int position,int collection_id) {
         int i = coinList.get(position).getCount();
         CoinDBHelper coinDBHelper = new CoinDBHelper(this.context);
 
         if (i == 0) {
             coinList.get(position).setCount(1);
-
+            changeCollected(collection_id,1);
             coinDBHelper.changeCoinState(coinList.get(position).getId(), 1);
+
         } else {
             coinList.get(position).setCount(0);
+            changeCollected(collection_id,-1);
             coinDBHelper.changeCoinState(coinList.get(position).getId(), 0);
-
         }
     }
     public void changeLock(int collection,boolean lock) {
         CollectionDBHelper helper = new CollectionDBHelper(this.context);
         helper.changeCollectionLock(collection,lock);
+    }
+    public void changeCollected(int collection,int collected) {
+        CollectionDBHelper helper = new CollectionDBHelper(this.context);
+        helper.changeCollectedCount(collection,collected);
     }
 
     public int getId(int position) {

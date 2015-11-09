@@ -64,6 +64,7 @@ public class CSVFile {
                 cl.setTitle(row[1].trim());
                 cl.setName(row[2].trim());
                 cl.setCount(Integer.parseInt(row[3].trim()));
+                cl.setCollected(0);// in new collection no coins
                 cl.setCountry(row[4].trim());
                 cl.setBelongings(0);//it set to 0 as we import from file only new collections
                 cl.setLock(false);// todo move it to settings as default LoOK settings

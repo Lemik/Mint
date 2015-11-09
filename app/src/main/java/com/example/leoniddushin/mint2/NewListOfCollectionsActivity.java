@@ -61,10 +61,12 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
                 String title = Collection.collectionList.get(position).getTitle();
                 String collectionName = Collection.collectionList.get(position).getName();
                 int count = Collection.collectionList.get(position).getCount();
+                int collected = Collection.collectionList.get(position).getCollected();
+
                 String country = Collection.collectionList.get(position).getCountry();
                 String icon = Collection.collectionList.get(position).getImg();
                 boolean lock = Collection.collectionList.get(position).getLock();
-                db.addCollection(new Collection(newcollection,title, collectionName, count, country, 1, icon, lock));
+                db.addCollection(new Collection(newcollection,title, collectionName, count,collected, country, 1, icon, lock));
 
                 addCollectiontoDB(collectionName, newcollection);
                 //int i = getResources().getIdentifier(Collection.collectionList.get(position).getName(), "raw", getPackageName());

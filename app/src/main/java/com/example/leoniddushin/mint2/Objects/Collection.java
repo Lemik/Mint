@@ -11,18 +11,20 @@ public class Collection {
     private String title;
     private String name;
     private int count;
+    private int collected;
     private String country;
     private int belongings;
     private static boolean lock;
     private String img;
 
     public Collection(){    }
-    public Collection(int id,String title,String name, int count,String country,int belongings, String img, boolean lock) {
+    public Collection(int id,String title,String name, int count, int collected,String country,int belongings, String img, boolean lock) {
         super();
         this.id = id;
         this.title =title;
         this.name = name;
         this.count = count;
+        this.collected = collected;
         this.country = country;
         this.belongings = belongings;
         this.lock = lock;
@@ -46,6 +48,7 @@ public class Collection {
     public int getCount() {
         return count;
     }
+    public  int getCollected(){return  collected;}
     public String getCountry() {
         return country;
     }
@@ -71,6 +74,7 @@ public class Collection {
     public void setCount(int count) {
         this.count = count;
     }
+    public void setCollected(int collected){this.collected =collected;}
     public void setCountry(String country) {
         this.country = country;
     }

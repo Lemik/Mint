@@ -120,6 +120,7 @@ public class MyCollectionsActivity extends ActionBarActivity {
             }
         });
     }
+
     private void restartActivity(){
         Intent intent = getIntent();
         finish();
