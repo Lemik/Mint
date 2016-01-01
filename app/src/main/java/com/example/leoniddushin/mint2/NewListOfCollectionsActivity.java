@@ -33,7 +33,6 @@ public class NewListOfCollectionsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_collections_list);
-        // Create a new DatabaseHelper
 
         coindb = new CoinDBHelper(this);
         db = new CollectionDBHelper(this);

@@ -161,6 +161,16 @@ public class CollectionDBHelper extends SQLiteOpenHelper{
         db.update(COLLECTION_TBL, row, KEY_ID_COLLECTION + " = ?", new String[] { String.valueOf(CollectionId) } );
         db.close();
     }
+    public void changeCollectionNameById(int CollectionId,String title){
+      Log.d("chage collection name by coin ID = ", String.valueOf(CollectionId) );
+        SQLiteDatabase db = this.getWritableDatabase();
+        if(db==null){return;}
+        ContentValues row = new ContentValues();
+        row.put(KEY_COLLECTION_TITLE, title );
+        db.update(COLLECTION_TBL, row, KEY_ID_COLLECTION + " = ?", new String[] { String.valueOf(CollectionId) } );
+        db.close();
+
+    };
 
     public void changeCollectedCount(int CollectionId, int changes){
         Log.d("change how many coins ase collected by collection ID  = ", String.valueOf(CollectionId));

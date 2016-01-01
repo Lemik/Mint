@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +35,14 @@ public class MyCollectionsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity();
+    }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        activity();
+    }
+    private void activity() {
         setContentView(R.layout.my_collections_list);
 //verify that there is atleast one collection
         dbCollection = new CollectionDBHelper(this);
@@ -42,7 +51,7 @@ public class MyCollectionsActivity extends ActionBarActivity {
             Toast.makeText(MyCollectionsActivity.this, "You don't have any collections", Toast.LENGTH_SHORT).show();
             //todo add button to add new collection
         }
-//get parameter
+       //get parameter
         Intent intent = getIntent();
         countryName = intent.getStringExtra(CountriesListActivity.EXTRA_RES_COUNTRY_ID);
         //todo Load all collections from DB with belongins = 1
@@ -82,7 +91,10 @@ public class MyCollectionsActivity extends ActionBarActivity {
 
                 // set the custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.text);
-                text.setText("Collection name: " +name);
+                final EditText editText = (EditText) dialog.findViewById(R.id.editText);
+
+                text.setText("Collection name:");
+                editText.setText(name);
                 ImageView image = (ImageView) dialog.findViewById(R.id.image);
                 int icon = context.getResources().getIdentifier(Collection.collectionList.get(position).getImg(),"drawable",context.getPackageName());
                 image.setImageResource(icon);
@@ -97,7 +109,6 @@ public class MyCollectionsActivity extends ActionBarActivity {
                         if(dbCollection.deleteCollectionByID(Collection.collectionList.get(position).getId()) &&
                                  dbCoin.deleteCoinsByCollectionID(Collection.collectionList.get(position).getId()))
                             Toast.makeText(MyCollectionsActivity.this, "Collection deleted", Toast.LENGTH_SHORT).show();
-//todo remove this lite and test how it's look like
                         dialog.cancel();
                         restartActivity();
                     }
@@ -105,7 +116,10 @@ public class MyCollectionsActivity extends ActionBarActivity {
                 renameButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        dbCollection.changeCollectionNameById(Collection.collectionList.get(position).getId(),editText.getText().toString());
                         Toast.makeText(MyCollectionsActivity.this, "Rename", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                        restartActivity();
                     }
                 });
                 settingsButton.setOnClickListener(new View.OnClickListener() {
