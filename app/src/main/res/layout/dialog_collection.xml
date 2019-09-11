@@ -8,7 +8,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
-        android:src="@drawable/canadian_25_olimpic2010_lucky_loonie_2010" />
+        android:src="@drawable/canada_1d_2012_locky_loonie_web"
+        />
+        <!--android:src="@drawable/canadian_25_olimpic2010_lucky_loonie_2010"-->
 
     <TextView
         android:id="@+id/text"
@@ -16,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textColor="#FFF"
         android:layout_toRightOf="@+id/image"
-        android:text="This is title" />/>
+        android:text="This is title" />
 
     <EditText
         android:layout_width="fill_parent"

@@ -3,7 +3,7 @@ package com.example.leoniddushin.mint2;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +23,7 @@ import com.example.leoniddushin.mint2.Objects.Collection;
 
 import java.util.ArrayList;
 
-public class MyCollectionsActivity extends ActionBarActivity {
+public class MyCollectionsActivity extends AppCompatActivity {
 
     private CollectionDBHelper dbCollection;
     private CoinDBHelper dbCoin;

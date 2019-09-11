@@ -2,7 +2,7 @@ package com.example.leoniddushin.mint2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +20,7 @@ import com.example.leoniddushin.mint2.Objects.Collection;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class NewListOfCollectionsActivity extends ActionBarActivity {
+public class NewListOfCollectionsActivity extends AppCompatActivity {
 
     ArrayList<Collection> collections = new ArrayList<Collection>();
     CollectionAdapter collectionsAdapter;
