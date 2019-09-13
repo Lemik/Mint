@@ -1,8 +1,8 @@
 package com.example.leoniddushin.mint2;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ import com.example.leoniddushin.mint2.Adapters.CoinAdapter;
 import com.example.leoniddushin.mint2.Adapters.CollectionAdapter;
 import com.example.leoniddushin.mint2.Objects.Collection;
 
-public class CollectionActivity  extends ActionBarActivity {
+public class CollectionActivity  extends AppCompatActivity {
 
     protected static final String COLLECTION_NAME = "COLLECTION_NAME";
     protected static final String COLLECTION_ID= "COLLECTION_ID";

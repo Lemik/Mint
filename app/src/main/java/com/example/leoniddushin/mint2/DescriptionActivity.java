@@ -2,8 +2,8 @@ package com.example.leoniddushin.mint2;
 
 import android.content.Intent;
 import android.media.Image;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -15,7 +15,7 @@ import com.example.leoniddushin.mint2.Objects.Collection;
 import java.util.ArrayList;
 
 
-public class DescriptionActivity extends ActionBarActivity {
+public class DescriptionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
